@@ -286,8 +286,11 @@
       <h3>Expiry Date: 2023 - 06 - 01</h3>
 
     </main>
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    <div class="dots-container">
+        <span class="dot" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+    
+      </div>
   </div>
   <script src="script.js"></script>
   </body>

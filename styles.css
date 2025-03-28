@@ -74,12 +74,13 @@ li img {
 .slide {
   margin-top: 120px;
   position: relative;
+
   z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 353px;
-  height: 432px;
+  height: 500px;
   overflow: hidden; /* Ensures the image fits within the container */
   border-radius: 10px;
 }
@@ -126,7 +127,7 @@ main {
   pointer-events: none;
 }
 .profile-details {
-  height: 30%;
+  height: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,35 +199,36 @@ main h3 {
   font-weight: 400;
   line-height: normal;
 }
-.prev,
-.next {
-  position: absolute;
-  top: 65%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 10;
-}
-.prev {
-  left: 5px;
-}
-.next {
-  right: 5px;
+.dots-container {
+  text-align: center;
+  margin-top: 10px;
 }
 
-/* Button Hover Effects */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+/* Style for dots */
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+  border-radius: 100px;
+  border: 2px solid #73c6eb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Active dot style */
+.dot.active {
+  border-radius: 100px;
+  border: 1px solid #73c6eb;
+  background: #73c6eb;
+  scale: 1.2;
 }
 .backside {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
+  gap: 130px;
 }
 .more-details {
   display: flex;
