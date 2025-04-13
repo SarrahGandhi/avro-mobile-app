@@ -7,289 +7,64 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="menu-container">
-          <svg
-            class="menu"
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M4.80005 8.00039C4.80005 7.57604 4.96862 7.16908 5.26868 6.86902C5.56874 6.56896 5.9757 6.40039 6.40005 6.40039H25.6C26.0244 6.40039 26.4314 6.56896 26.7314 6.86902C27.0315 7.16908 27.2 7.57604 27.2 8.00039C27.2 8.42474 27.0315 8.8317 26.7314 9.13176C26.4314 9.43182 26.0244 9.60039 25.6 9.60039H6.40005C5.9757 9.60039 5.56874 9.43182 5.26868 9.13176C4.96862 8.8317 4.80005 8.42474 4.80005 8.00039ZM4.80005 16.0004C4.80005 15.576 4.96862 15.1691 5.26868 14.869C5.56874 14.569 5.9757 14.4004 6.40005 14.4004H25.6C26.0244 14.4004 26.4314 14.569 26.7314 14.869C27.0315 15.1691 27.2 15.576 27.2 16.0004C27.2 16.4247 27.0315 16.8317 26.7314 17.1318C26.4314 17.4318 26.0244 17.6004 25.6 17.6004H6.40005C5.9757 17.6004 5.56874 17.4318 5.26868 17.1318C4.96862 16.8317 4.80005 16.4247 4.80005 16.0004ZM4.80005 24.0004C4.80005 23.576 4.96862 23.1691 5.26868 22.869C5.56874 22.569 5.9757 22.4004 6.40005 22.4004H16C16.4244 22.4004 16.8314 22.569 17.1314 22.869C17.4315 23.1691 17.6 23.576 17.6 24.0004C17.6 24.4247 17.4315 24.8317 17.1314 25.1318C16.8314 25.4318 16.4244 25.6004 16 25.6004H6.40005C5.9757 25.6004 5.56874 25.4318 5.26868 25.1318C4.96862 24.8317 4.80005 24.4247 4.80005 24.0004Z"
-              fill="#6F81A0"
+    <div class="app-container">
+      <div class="status-bar">
+        <div class="time">9:41</div>
+        <div class="status-icons">
+          <div class="signal"></div>
+          <div class="wifi"></div>
+          <div class="battery"></div>
+        </div>
+      </div>
+
+      <div class="background-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="393"
+          height="244"
+          viewBox="0 0 393 244"
+          fill="none"
+        >
+          <path
+            d="M0 0H391.974L393 212.42C393 212.42 384.278 224.945 359.651 223.943C343.176 223.273 309.885 195.725 287.311 202.676C254.407 212.807 248.839 238.187 214.457 240.977C178.591 243.887 162.125 210.416 127.238 215.426C98.6569 219.531 81.4239 238.861 51.3055 242.981C28.2885 246.13 0 240.977 0 240.977V0Z"
+            fill="#E4EAED"
+          />
+        </svg>
+      </div>
+
+      <main class="registration-container">
+        <div class="placeholder-image">
+          <img src="images/itcsystemslogo.png" alt="ITC Systems Logo" />
+        </div>
+
+        <div class="registration-content">
+          <h2>Step 1</h2>
+          <h1>Registration</h1>
+
+          <p>Enter your school email address</p>
+
+          <form id="loginForm" class="registration-form">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email Address"
+              required
             />
-          </svg>
+            <button type="submit" class="next-button">
+              Next
+              <span class="arrow">→</span>
+            </button>
+          </form>
         </div>
-        <div class="menu-list">
-          <ul>
-            <li>
-              <a href="#"
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                >
-                  <path
-                    d="M19.9999 22.6667H26.6666L24.7932 20.7933C24.5417 20.5417 24.3421 20.243 24.206 19.9142C24.0699 19.5855 23.9999 19.2331 23.9999 18.8773V14.6667C24.0001 13.0119 23.4874 11.3978 22.5322 10.0465C21.5771 8.69525 20.2266 7.67329 18.6666 7.12133V6.66667C18.6666 5.95942 18.3856 5.28115 17.8855 4.78105C17.3854 4.28095 16.7072 4 15.9999 4C15.2927 4 14.6144 4.28095 14.1143 4.78105C13.6142 5.28115 13.3333 5.95942 13.3333 6.66667V7.12133C10.2266 8.22 7.99992 11.184 7.99992 14.6667V18.8787C7.99992 19.596 7.71459 20.2853 7.20659 20.7933L5.33325 22.6667H11.9999M19.9999 22.6667V24C19.9999 25.0609 19.5785 26.0783 18.8283 26.8284C18.0782 27.5786 17.0608 28 15.9999 28C14.9391 28 13.9216 27.5786 13.1715 26.8284C12.4213 26.0783 11.9999 25.0609 11.9999 24V22.6667M19.9999 22.6667H11.9999"
-                    stroke="#6F81A0"
-                    stroke-width="2.33333"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle cx="22" cy="10" r="6" fill="#6F81A0" /></svg
-              ></a>
-            </li>
-            <li>
-              <a href="#"
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="32"
-                  viewBox="0 0 33 32"
-                  fill="none"
-                >
-                  <path
-                    d="M28.5 4H25.5V6L28.5 5.999V26H25.5V28H28.5C29.603 28 30.5 27.103 30.5 26V6C30.5 4.897 29.603 4 28.5 4Z"
-                    fill="#6F81A0"
-                  />
-                  <path
-                    d="M16.5 19C17.6046 19 18.5 18.1046 18.5 17C18.5 15.8954 17.6046 15 16.5 15C15.3954 15 14.5 15.8954 14.5 17C14.5 18.1046 15.3954 19 16.5 19Z"
-                    fill="#6F81A0"
-                  />
-                  <path
-                    d="M22.5 4V28C22.5 29.103 21.603 30 20.5 30H4.5C3.397 30 2.5 29.103 2.5 28V4C2.5 2.897 3.397 2 4.5 2H20.5C21.603 2 22.5 2.897 22.5 4ZM4.5 28H20.5V3.999L4.5 4V28Z"
-                    fill="#6F81A0"
-                  /></svg
-              ></a>
-            </li>
-            <li>
-              <a href="#"
-                ><img
-                  src="images/profileicon.jpeg"
-                  alt="about"
-                  width="33"
-                  height="32"
-              /></a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <div class="logo">
-        <img src="images/itcsystemslogo.png" alt="logo" />
-      </div>
-    </header>
-    <div class="background-container">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="393"
-        height="244"
-        viewBox="0 0 393 244"
-        fill="none"
-      >
-        <path
-          d="M0 0H391.974L393 212.42C393 212.42 384.278 224.945 359.651 223.943C343.176 223.273 309.885 195.725 287.311 202.676C254.407 212.807 248.839 238.187 214.457 240.977C178.591 243.887 162.125 210.416 127.238 215.426C98.6569 219.531 81.4239 238.861 51.3055 242.981C28.2885 246.13 0 240.977 0 240.977V0Z"
-          fill="#E4EAED"
-        />
-      </svg>
-    </div>
-    <main>
-      <div class="slider-container">
-        <div class="slide">
-          <div class="profile-details">
-            <div class="profile-name">
-              <h1>Wendy Carmichael</h1>
-            </div>
-            <div class="scores">
-              <div class="lives">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                >
-                  <path
-                    d="M4.658 6.94999C4.23142 7.37656 3.89304 7.88297 3.66218 8.44032C3.43132 8.99766 3.3125 9.59502 3.3125 10.1983C3.3125 10.8015 3.43132 11.3989 3.66218 11.9562C3.89304 12.5136 4.23142 13.02 4.658 13.4466L12.5 21.2886L20.3421 13.4466C21.2036 12.5851 21.6876 11.4166 21.6876 10.1983C21.6876 8.97994 21.2036 7.81149 20.3421 6.94999C19.4806 6.08849 18.3121 5.6045 17.0938 5.6045C15.8754 5.6045 14.707 6.08849 13.8455 6.94999L12.5 8.29545L11.1546 6.94999C10.728 6.52342 10.2216 6.18504 9.66425 5.95418C9.10691 5.72331 8.50955 5.60449 7.90629 5.60449C7.30303 5.60449 6.70567 5.72331 6.14832 5.95418C5.59098 6.18504 5.08457 6.52342 4.658 6.94999Z"
-                    stroke="white"
-                    stroke-width="1.53125"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <h2>5</h2>
-              </div>
-              <div class="lives">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                >
-                  <path
-                    d="M12.7502 17.5C11.0766 17.5 9.61995 18.765 8.8679 20.6312C8.5087 21.5225 9.02413 22.5 9.70901 22.5H15.7914C16.4763 22.5 16.9917 21.5225 16.6325 20.6312C15.8805 18.765 14.4238 17.5 12.7502 17.5Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M19.2498 5.5H20.452C21.6529 5.5 22.2533 5.5 22.5666 5.87736C22.8798 6.25472 22.7496 6.82113 22.4891 7.95395L22.0983 9.65307C21.5107 12.2086 19.3607 14.1088 16.7498 14.5"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6.25025 5.5H5.04804C3.84717 5.5 3.24674 5.5 2.93349 5.87736C2.62024 6.25472 2.75049 6.82113 3.011 7.95395L3.40173 9.65307C3.98939 12.2086 6.13937 14.1088 8.75025 14.5"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M12.7498 17.5C15.7706 17.5 18.3148 12.8379 19.0795 6.49089C19.291 4.73558 19.3968 3.85793 18.8366 3.17896C18.2765 2.5 17.3721 2.5 15.5632 2.5H9.93634C8.12751 2.5 7.22309 2.5 6.66293 3.17896C6.10277 3.85793 6.20851 4.73558 6.42001 6.49089C7.18476 12.8379 9.72899 17.5 12.7498 17.5Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <h2>4500</h2>
-              </div>
-            </div>
-            <p>Student</p>
-          </div>
-          <div class="gradient-overlay"></div>
 
-          <img src="images/profileicon.jpeg" alt="image" />
-        </div>
-        <div class="slide">
-          <div class="backside">
-            <div class="more-details">
-              <h2>Library Bracode</h2>
-              <h3>Wendy Carmichael</h3>
-              <p>Student</p>
-            </div>
-            <div class="barcode-details">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="297"
-                height="50"
-                viewBox="0 0 297 50"
-                fill="none"
-              >
-                <path d="M1.78916 0H0V49.838H1.78916V0Z" fill="black" />
-                <path d="M3.57817 0H2.68359V49.838H3.57817V0Z" fill="black" />
-                <path d="M6.26177 0H5.36719V49.838H6.26177V0Z" fill="black" />
-                <path d="M10.7354 0H9.84082V49.838H10.7354V0Z" fill="black" />
-                <path d="M15.2082 0H11.6299V49.838H15.2082V0Z" fill="black" />
-                <path d="M17.8916 0H16.9971V49.838H17.8916V0Z" fill="black" />
-                <path d="M20.5752 0H19.6807V49.838H20.5752V0Z" fill="black" />
-                <path d="M25.0479 0H24.1533V49.838H25.0479V0Z" fill="black" />
-                <path d="M28.6261 0H26.8369V49.838H28.6261V0Z" fill="black" />
-                <path d="M33.0998 0H29.5215V49.838H33.0998V0Z" fill="black" />
-                <path d="M35.7832 0H34.8887V49.838H35.7832V0Z" fill="black" />
-                <path d="M38.4668 0H37.5723V49.838H38.4668V0Z" fill="black" />
-                <path d="M40.2559 0H39.3613V49.838H40.2559V0Z" fill="black" />
-                <path d="M42.9395 0H41.1504V49.838H42.9395V0Z" fill="black" />
-                <path d="M47.4131 0H46.5186V49.838H47.4131V0Z" fill="black" />
-                <path d="M50.0967 0H49.2021V49.838H50.0967V0Z" fill="black" />
-                <path d="M54.5694 0H53.6748V49.838H54.5694V0Z" fill="black" />
-                <path d="M57.253 0H55.4639V49.838H57.253V0Z" fill="black" />
-                <path d="M59.9366 0H59.042V49.838H59.9366V0Z" fill="black" />
-                <path d="M63.5147 0H61.7256V49.838H63.5147V0Z" fill="black" />
-                <path d="M65.3038 0H64.4092V49.838H65.3038V0Z" fill="black" />
-                <path d="M72.4611 0H68.8828V49.838H72.4611V0Z" fill="black" />
-                <path d="M74.25 0H73.3555V49.838H74.25V0Z" fill="black" />
-                <path d="M76.9336 0H76.0391V49.838H76.9336V0Z" fill="black" />
-                <path d="M79.6172 0H78.7227V49.838H79.6172V0Z" fill="black" />
-                <path d="M83.1954 0H81.4062V49.838H83.1954V0Z" fill="black" />
-                <path d="M87.669 0H86.7744V49.838H87.669V0Z" fill="black" />
-                <path d="M89.4581 0H88.5635V49.838H89.4581V0Z" fill="black" />
-                <path d="M94.8253 0H93.0361V49.838H94.8253V0Z" fill="black" />
-                <path d="M97.5088 0H96.6143V49.838H97.5088V0Z" fill="black" />
-                <path d="M100.192 0H98.4033V49.838H100.192V0Z" fill="black" />
-                <path d="M104.666 0H103.771V49.838H104.666V0Z" fill="black" />
-                <path d="M107.35 0H106.455V49.838H107.35V0Z" fill="black" />
-                <path d="M110.033 0H108.244V49.838H110.033V0Z" fill="black" />
-                <path d="M112.717 0H111.822V49.838H112.717V0Z" fill="black" />
-                <path d="M114.506 0H113.611V49.838H114.506V0Z" fill="black" />
-                <path d="M120.768 0H118.084V49.838H120.768V0Z" fill="black" />
-                <path d="M123.452 0H121.663V49.838H123.452V0Z" fill="black" />
-                <path d="M126.136 0H125.241V49.838H126.136V0Z" fill="black" />
-                <path d="M128.819 0H127.925V49.838H128.819V0Z" fill="black" />
-                <path d="M132.398 0H130.608V49.838H132.398V0Z" fill="black" />
-                <path d="M136.87 0H134.187V49.838H136.87V0Z" fill="black" />
-                <path d="M138.659 0H137.765V49.838H138.659V0Z" fill="black" />
-                <path d="M141.344 0H139.555V49.838H141.344V0Z" fill="black" />
-                <path d="M145.817 0H143.133V49.838H145.817V0Z" fill="black" />
-                <path d="M151.184 0H147.605V49.838H151.184V0Z" fill="black" />
-                <path d="M154.762 0H152.078V49.838H154.762V0Z" fill="black" />
-                <path d="M156.551 0H155.656V49.838H156.551V0Z" fill="black" />
-                <path d="M159.234 0H157.445V49.838H159.234V0Z" fill="black" />
-                <path d="M163.708 0H162.813V49.838H163.708V0Z" fill="black" />
-                <path d="M165.497 0H164.603V49.838H165.497V0Z" fill="black" />
-                <path d="M168.181 0H167.286V49.838H168.181V0Z" fill="black" />
-                <path d="M170.864 0H169.97V49.838H170.864V0Z" fill="black" />
-                <path d="M176.232 0H174.442V49.838H176.232V0Z" fill="black" />
-                <path d="M180.705 0H177.127V49.838H180.705V0Z" fill="black" />
-                <path d="M182.494 0H181.6V49.838H182.494V0Z" fill="black" />
-                <path d="M185.178 0H184.283V49.838H185.178V0Z" fill="black" />
-                <path d="M187.861 0H186.967V49.838H187.861V0Z" fill="black" />
-                <path d="M192.334 0H191.439V49.838H192.334V0Z" fill="black" />
-                <path d="M195.018 0H193.229V49.838H195.018V0Z" fill="black" />
-                <path d="M197.702 0H196.808V49.838H197.702V0Z" fill="black" />
-                <path d="M202.175 0H198.597V49.838H202.175V0Z" fill="black" />
-                <path d="M204.858 0H203.964V49.838H204.858V0Z" fill="black" />
-                <path d="M207.542 0H206.647V49.838H207.542V0Z" fill="black" />
-                <path d="M212.015 0H211.12V49.838H212.015V0Z" fill="black" />
-                <path d="M215.594 0H213.805V49.838H215.594V0Z" fill="black" />
-                <path d="M217.383 0H216.488V49.838H217.383V0Z" fill="black" />
-                <path d="M220.066 0H218.277V49.838H220.066V0Z" fill="black" />
-                <path d="M222.75 0H221.855V49.838H222.75V0Z" fill="black" />
-                <path d="M227.223 0H226.328V49.838H227.223V0Z" fill="black" />
-                <path d="M229.906 0H229.012V49.838H229.906V0Z" fill="black" />
-                <path d="M235.274 0H231.695V49.838H235.274V0Z" fill="black" />
-                <path d="M237.064 0H236.169V49.838H237.064V0Z" fill="black" />
-                <path d="M242.431 0H238.853V49.838H242.431V0Z" fill="black" />
-                <path d="M244.22 0H243.325V49.838H244.22V0Z" fill="black" />
-                <path d="M247.798 0H246.009V49.838H247.798V0Z" fill="black" />
-                <path d="M250.482 0H248.692V49.838H250.482V0Z" fill="black" />
-                <path d="M254.955 0H251.377V49.838H254.955V0Z" fill="black" />
-                <path d="M256.744 0H255.85V49.838H256.744V0Z" fill="black" />
-                <path d="M262.111 0H260.322V49.838H262.111V0Z" fill="black" />
-                <path d="M264.795 0H263.9V49.838H264.795V0Z" fill="black" />
-                <path d="M266.584 0H265.689V49.838H266.584V0Z" fill="black" />
-                <path d="M270.162 0H268.373V49.838H270.162V0Z" fill="black" />
-                <path d="M274.636 0H273.741V49.838H274.636V0Z" fill="black" />
-                <path d="M277.319 0H275.53V49.838H277.319V0Z" fill="black" />
-                <path d="M280.898 0H279.108V49.838H280.898V0Z" fill="black" />
-                <path d="M284.476 0H282.687V49.838H284.476V0Z" fill="black" />
-                <path d="M287.159 0H285.37V49.838H287.159V0Z" fill="black" />
-                <path d="M292.527 0H289.844V49.838H292.527V0Z" fill="black" />
-                <path d="M294.316 0H293.422V49.838H294.316V0Z" fill="black" />
-                <path d="M297 0H295.211V49.838H297V0Z" fill="black" />
-              </svg>
-              <h4>1245785946132645</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h3>Expiry Date: 2023 - 06 - 01</h3>
-    </main>
-    <div class="dots-container">
-      <span class="dot" onclick="currentSlide(0)"></span>
-      <span class="dot" onclick="currentSlide(1)"></span>
+        <footer class="registration-footer">
+          <p>Presented by ITC Systems</p>
+        </footer>
+      </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="userData.js"></script>
+    <script src="login.js"></script>
   </body>
 </html>
