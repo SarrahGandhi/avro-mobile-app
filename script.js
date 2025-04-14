@@ -18,12 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeMenu() {
     menuPanel.classList.remove("active");
     overlay.classList.remove("active");
+    body.style.overflow = "auto";
   }
 
   // Function to open menu
   function openMenu() {
     menuPanel.classList.add("active");
     overlay.classList.add("active");
+    body.style.overflow = "hidden";
   }
 
   // Toggle menu
@@ -34,6 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Close menu when clicking overlay
   overlay.addEventListener("click", closeMenu);
+
+  // Close menu when pressing Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && menuPanel.classList.contains("active")) {
+      closeMenu();
+    }
+  });
 });
 
 // Show the initial slide

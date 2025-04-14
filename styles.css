@@ -7,6 +7,8 @@ body {
   align-items: center;
   min-height: 100vh;
   background: #fff;
+  z-index: -10;
+  position: relative;
 }
 
 /* Add a container for the entire app */
@@ -14,15 +16,17 @@ body {
   position: relative;
   width: 100%;
   max-width: 390px;
+  margin: 0 auto;
   height: 100vh;
   overflow: hidden;
   background: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  z-index: -3;
 }
 
 header {
   position: relative;
-  z-index: 1;
+  z-index: -1;
 }
 
 .header-icons {
@@ -83,33 +87,31 @@ nav {
 
 .menu-overlay {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 390px;
-  height: 100%;
-  background: rgba(0, 0, 0, 0);
-  transition: background-color 0.3s ease-in-out;
+  width: 390px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   opacity: 0;
   visibility: hidden;
-  backdrop-filter: blur(0px);
+  backdrop-filter: blur(2px);
   transition: all 0.3s ease-in-out;
 }
 
 .menu-overlay.active {
   visibility: visible;
   opacity: 1;
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(2px);
+  z-index: 999;
 }
 
 .menu-panel {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  left: -100%;
-  height: 800px;
+  left: 50%;
+  transform: translateX(-195px);
+  height: 85vh;
   width: 300px;
   background: white;
   z-index: 1000;
@@ -121,12 +123,14 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   max-width: 390px;
-  transform: translateX(0);
+  opacity: 0;
+  transform: translateX(-195px) translateX(-100%);
 }
 
 .menu-panel.active {
-  left: 0;
-  transform: translateX(0);
+  transform: translateX(-195px);
+  opacity: 1;
+  z-index: 1000;
 }
 
 .menu-list ul {
@@ -663,7 +667,7 @@ main h3 {
 .registration-container {
   margin-top: 100px;
   position: relative;
-  z-index: 1;
+  z-index: -2;
   display: flex;
   flex-direction: column;
   align-items: center;
