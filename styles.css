@@ -21,7 +21,8 @@ body {
 }
 
 header {
-  z-index: 2;
+  position: relative;
+  z-index: 1;
 }
 
 .header-icons {
@@ -34,6 +35,7 @@ header {
   position: relative;
   z-index: 1;
   margin-top: 20px;
+  justify-self: center;
 }
 
 .logo img {
@@ -659,6 +661,7 @@ main h3 {
 }
 
 .registration-container {
+  margin-top: 100px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -697,7 +700,7 @@ main h3 {
 }
 
 .registration-form input {
-  width: 100%;
+  width: 90%;
   padding: 16px;
   border: none;
   border-radius: 8px;
@@ -710,7 +713,7 @@ main h3 {
   padding: 16px;
   border: none;
   border-radius: 8px;
-  background: #999999;
+  background: #435e8c;
   color: white;
   font-size: 16px;
   display: flex;
@@ -734,4 +737,23 @@ main h3 {
   padding: 20px;
   font-size: 14px;
   color: #666;
+}
+
+.header-background {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 390px;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.header-background svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
