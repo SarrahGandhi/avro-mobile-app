@@ -37,7 +37,7 @@ const userData = {
   "emma.wilson@gmail.com": {
     name: "Emma Wilson",
     role: "Student",
-    image: "images/emma.jpg",
+    image: "images/emma.jpeg",
     lives: 4,
     points: 5200,
     notifications: [

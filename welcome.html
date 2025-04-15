@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome - Humber</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Inter Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white">
+    <div class="container-fluid p-0 min-vh-100">
+      <!-- Status Bar -->
+
+      <div class="row g-0 justify-content-center min-vh-100">
+        <div class="col-12" style="max-width: 390px">
+          <div class="d-flex flex-column align-items-center px-4 min-vh-100">
+            <!-- Wave Background -->
+            <div class="header-background">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="393"
+                height="244"
+                viewBox="0 0 393 244"
+                fill="none"
+              >
+                <path
+                  d="M0 0H391.974L393 212.42C393 212.42 384.278 224.945 359.651 223.943C343.176 223.273 309.885 195.725 287.311 202.676C254.407 212.807 248.839 238.187 214.457 240.977C178.591 243.887 162.125 210.416 127.238 215.426C98.6569 219.531 81.4239 238.861 51.3055 242.981C28.2885 246.13 0 240.977 0 240.977V0Z"
+                  fill="#E4EAED"
+                />
+              </svg>
+            </div>
+
+            <!-- Logo -->
+            <div class="text-center mt-5 mb-5">
+              <img
+                src="images/itcsystemslogo.png"
+                alt="Humber Polytechnic"
+                class="img-fluid"
+                style="width: 280px"
+              />
+            </div>
+
+            <!-- Welcome Content -->
+            <div
+              class="text-center flex-grow-1 d-flex flex-column justify-content-center"
+            >
+              <h2
+                class="fs-1 mb-4"
+                style="
+                  color: #000;
+                  font-family: Inter;
+                  font-size: 21.442px;
+                  font-style: normal;
+                  font-weight: 700;
+                  line-height: normal;
+                "
+              >
+                Hello,
+              </h2>
+              <h1
+                class="display-4 fw-normal mb-5"
+                id="userName"
+                style="
+                  color: #000;
+                  font-family: Inter;
+                  font-size: 32px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                "
+              ></h1>
+            </div>
+
+            <!-- Footer with Icons -->
+            <div class="text-center mb-4">
+              <div
+                class="d-flex justify-content-center align-items-center gap-5 mb-3"
+              >
+                <img
+                  src="images/nfcicon.png"
+                  alt="Card Icon"
+                  style="width: 60px"
+                />
+                <img
+                  src="images/itcsystemslogo.png"
+                  alt="ITC Systems"
+                  style="width: 120px"
+                />
+              </div>
+              <p class="text-black-50">Presented by ITC Systems</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="userData.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get user data from localStorage
+        const userData = JSON.parse(localStorage.getItem("currentUser"));
+        if (userData && userData.name) {
+          document.getElementById("userName").textContent = userData.name;
+          // Set a timeout to redirect after 5 seconds
+          setTimeout(() => {
+            window.location.href = "SelectEvents.html";
+          }, 5000); // 5000 milliseconds = 5 seconds
+        } else {
+          // Redirect to login if no user data found
+          window.location.href = "index.html";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rewards - AVRO</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="userData.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #fff;
+      }
+
+      .container {
+        max-width: 390px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .back-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .header h1 {
+        color: #435e8c;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .points-section {
+        text-align: center;
+        padding: 20px;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .points-text {
+        color: #435e8c;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .tab-container {
+        display: flex;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 16px;
+        text-align: center;
+        color: #435e8c;
+        font-size: 18px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        position: relative;
+      }
+
+      .tab.active {
+        font-weight: 600;
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #435e8c;
+      }
+
+      /* Add new styles for redeem content */
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .gift-card-list {
+        padding: 20px;
+      }
+
+      .gift-card-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .gift-card-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .gift-card-image {
+        width: 80px;
+        height: 50px;
+        background: #8b9bb4;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 500;
+      }
+
+      .gift-card-title {
+        font-size: 18px;
+        color: #000;
+      }
+
+      .gift-card-points {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .points-value {
+        color: #435e8c;
+        font-size: 16px;
+      }
+
+      .redeem-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #e4eaed;
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .redeem-button.active {
+        background: #435e8c;
+        border-color: #435e8c;
+      }
+
+      .redeem-button.active::after {
+        content: "";
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .starbucks-card {
+        background: url("images/starbucks-card.jpg") center/cover;
+      }
+
+      .leaderboard {
+        padding: 20px;
+        position: relative;
+      }
+
+      .podium {
+        height: 300px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        margin-bottom: 40px;
+        margin-top: 100px;
+        position: relative;
+      }
+
+      .podium-place {
+        width: 100px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .podium-block {
+        width: 80%;
+        background: #8b9bb4;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 20px;
+        color: white;
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .first-place {
+        height: 200px;
+        background: #435e8c;
+      }
+
+      .second-place {
+        height: 160px;
+      }
+
+      .third-place {
+        height: 120px;
+      }
+
+      .profile-pic {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px solid white;
+        position: absolute;
+        top: -10px;
+        background: #fff;
+        overflow: hidden;
+        left: 50%;
+        transform: translate(-50%, -70px);
+      }
+
+      .profile-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .winner-details {
+        position: absolute;
+        top: -100px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .winner-name {
+        color: #435e8c;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .winner-points {
+        color: #435e8c;
+        font-size: 16px;
+        margin: 4px 10px 0 10px;
+      }
+
+      .leaderboard-list {
+        margin-top: 20px;
+      }
+
+      .leaderboard-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .rank {
+        width: 40px;
+        color: #435e8c;
+        font-weight: 600;
+      }
+
+      .player-info {
+        display: flex;
+        align-items: center;
+        flex: 1;
+      }
+
+      .player-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 12px;
+        overflow: hidden;
+      }
+
+      .player-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .player-name {
+        flex: 1;
+        color: #000;
+        font-weight: 500;
+      }
+
+      .me-badge {
+        background: #435e8c;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-left: 8px;
+      }
+
+      .points {
+        color: #000;
+        font-weight: 500;
+        margin-left: 12px;
+      }
+
+      /* Styles for confirm redeem button */
+      .confirm-redeem-button {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #435e8c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 16px 32px;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        width: calc(100% - 40px);
+        max-width: 350px;
+        display: none;
+      }
+
+      /* Success Modal Styles */
+      .success-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(228, 234, 237, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .success-modal-content {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        max-width: 350px;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: #435e8c;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+
+      .success-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+      }
+
+      .success-title {
+        color: #435e8c;
+        font-size: 24px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .success-message {
+        color: #435e8c;
+        font-size: 20px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #435e8c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <button class="back-button" onclick="history.back()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <h1>Rewards</h1>
+      </header>
+
+      <div class="points-section">
+        <h2 class="points-text">
+          You have <span id="userPoints"></span> HawkPoints
+        </h2>
+      </div>
+
+      <div class="tab-container">
+        <button class="tab" onclick="switchTab('leaderboard')">
+          Leaderboard
+        </button>
+        <button class="tab active" onclick="switchTab('redeem')">Redeem</button>
+      </div>
+
+      <div class="tab-content" id="leaderboardContent">
+        <div class="leaderboard">
+          <div class="podium">
+            <!-- Second Place -->
+            <div class="podium-place" style="margin-right: -10px">
+              <div class="winner-details">
+                <div class="profile-pic">
+                  <img src="images/profile2.jpg" alt="Second Place" />
+                </div>
+                <p class="winner-name">Hermione</p>
+                <p class="winner-points">8000 Points</p>
+              </div>
+              <div class="podium-block second-place">2</div>
+            </div>
+
+            <!-- First Place -->
+            <div class="podium-place" style="z-index: 2">
+              <div class="winner-details">
+                <div class="profile-pic">
+                  <img src="images/profile1.jpg" alt="First Place" />
+                </div>
+                <p class="winner-name">Harry</p>
+                <p class="winner-points">8500 Points</p>
+              </div>
+              <div class="podium-block first-place">1</div>
+            </div>
+
+            <!-- Third Place -->
+            <div class="podium-place" style="margin-left: -10px">
+              <div class="winner-details">
+                <div class="profile-pic">
+                  <img src="images/profile3.jpg" alt="Third Place" />
+                </div>
+                <p class="winner-name">Ron</p>
+                <p class="winner-points">6000 Points</p>
+              </div>
+              <div class="podium-block third-place">3</div>
+            </div>
+          </div>
+
+          <div class="leaderboard-list" id="leaderboardList">
+            <!-- List items will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content active" id="redeemContent">
+        <div class="gift-card-list">
+          <div class="gift-card-item">
+            <div class="gift-card-left">
+              <img
+                src="images/starbucks-card.jpg"
+                alt="Starbucks $5"
+                class="gift-card-image"
+              />
+              <div class="gift-card-title">Gift Card</div>
+            </div>
+            <div class="gift-card-points">
+              <div class="points-value">-1200 Points</div>
+              <button class="redeem-button" data-points="1200"></button>
+            </div>
+          </div>
+
+          <div class="gift-card-item">
+            <div class="gift-card-left">
+              <div class="gift-card-image">$12<br />Starbucks</div>
+              <div class="gift-card-title">Gift Card</div>
+            </div>
+            <div class="gift-card-points">
+              <div class="points-value">-2200 Points</div>
+              <button class="redeem-button" data-points="2200"></button>
+            </div>
+          </div>
+
+          <div class="gift-card-item">
+            <div class="gift-card-left">
+              <div class="gift-card-image">$8<br />Starbucks</div>
+              <div class="gift-card-title">Gift Card</div>
+            </div>
+            <div class="gift-card-points">
+              <div class="points-value">-1800 Points</div>
+              <button class="redeem-button" data-points="1800"></button>
+            </div>
+          </div>
+        </div>
+        <button class="confirm-redeem-button" id="confirmRedeemBtn">
+          Redeem Gift Card
+        </button>
+      </div>
+
+      <!-- Success Modal -->
+      <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+          <button class="close-modal" onclick="closeSuccessModal()">×</button>
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+              />
+            </svg>
+          </div>
+          <div class="success-title">
+            Successfully redeemed Gift Card -<span id="pointsRedeemed"></span>
+            HawkPoints.
+          </div>
+          <div class="success-message">
+            An <span style="font-weight: 500">email</span> with the gift card
+            code has been sent to your email address.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get current user data
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+        // Display user's points
+        document.getElementById("userPoints").textContent =
+          currentUser?.points || "0";
+
+        // Convert userData object to array and sort by points
+        const sortedUsers = Object.entries(userData)
+          .map(([email, user]) => ({
+            email,
+            name: user.name,
+            points: user.points,
+            image: user.image || `images/profile.jpg`,
+          }))
+          .sort((a, b) => b.points - a.points);
+
+        // Get top 3 users for podium
+        const topThree = sortedUsers.slice(0, 3);
+
+        // Update podium display
+        document.querySelector(
+          ".podium-place:nth-child(2) .winner-name"
+        ).textContent = topThree[0].name;
+        document.querySelector(
+          ".podium-place:nth-child(2) .winner-points"
+        ).textContent = `${topThree[0].points} Points`;
+        document.querySelector(
+          ".podium-place:nth-child(2) .profile-pic img"
+        ).src = topThree[0].image;
+
+        document.querySelector(
+          ".podium-place:nth-child(1) .winner-name"
+        ).textContent = topThree[1].name;
+        document.querySelector(
+          ".podium-place:nth-child(1) .winner-points"
+        ).textContent = `${topThree[1].points} Points`;
+        document.querySelector(
+          ".podium-place:nth-child(1) .profile-pic img"
+        ).src = topThree[1].image;
+
+        document.querySelector(
+          ".podium-place:nth-child(3) .winner-name"
+        ).textContent = topThree[2].name;
+        document.querySelector(
+          ".podium-place:nth-child(3) .winner-points"
+        ).textContent = `${topThree[2].points} Points`;
+        document.querySelector(
+          ".podium-place:nth-child(3) .profile-pic img"
+        ).src = topThree[2].image;
+
+        // Get users ranked 4th and below
+        const remainingUsers = sortedUsers.slice(3);
+
+        // Populate leaderboard list
+        const leaderboardList = document.getElementById("leaderboardList");
+        remainingUsers.forEach((user, index) => {
+          const rank = index + 4;
+          const item = document.createElement("div");
+          item.className = "leaderboard-item";
+          item.innerHTML = `
+            <div class="rank">${rank}</div>
+            <div class="player-info">
+              <div class="player-pic">
+                <img src="${user.image}" alt="${user.name}">
+              </div>
+              <div class="player-name">
+                ${user.name}
+                ${
+                  user.email === currentUserEmail
+                    ? '<span class="me-badge">ME</span>'
+                    : ""
+                }
+              </div>
+            </div>
+            <div class="points">${user.points}</div>
+          `;
+          leaderboardList.appendChild(item);
+        });
+
+        const confirmBtn = document.getElementById("confirmRedeemBtn");
+        const successModal = document.getElementById("successModal");
+        let selectedPoints = null;
+
+        // Handle redeem button clicks
+        document.querySelectorAll(".redeem-button").forEach((button) => {
+          button.addEventListener("click", function () {
+            document
+              .querySelectorAll(".redeem-button")
+              .forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+            selectedPoints = this.dataset.points;
+            confirmBtn.style.display = "block";
+          });
+        });
+
+        // Handle confirm redeem button click
+        confirmBtn.addEventListener("click", function () {
+          if (selectedPoints) {
+            document.getElementById("pointsRedeemed").textContent =
+              selectedPoints;
+            successModal.style.display = "flex";
+
+            // Update user points
+            const currentPoints = parseInt(
+              document.getElementById("userPoints").textContent
+            );
+            const newPoints = currentPoints - parseInt(selectedPoints);
+            document.getElementById("userPoints").textContent = newPoints;
+          }
+        });
+      });
+
+      function switchTab(tabName) {
+        // Remove active class from all tabs and contents
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((content) => content.classList.remove("active"));
+
+        // Add active class to selected tab and content
+        if (tabName === "leaderboard") {
+          document.querySelector(".tab:first-child").classList.add("active");
+          document.getElementById("leaderboardContent").classList.add("active");
+        } else {
+          document.querySelector(".tab:last-child").classList.add("active");
+          document.getElementById("redeemContent").classList.add("active");
+        }
+      }
+
+      function closeSuccessModal() {
+        document.getElementById("successModal").style.display = "none";
+        // Reset selection
+        document
+          .querySelectorAll(".redeem-button")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.getElementById("confirmRedeemBtn").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

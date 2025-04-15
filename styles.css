@@ -9,6 +9,7 @@ body {
   background: #fff;
   z-index: -10;
   position: relative;
+  font-family: "Inter", sans-serif;
 }
 
 /* Add a container for the entire app */
@@ -717,7 +718,7 @@ main h3 {
   padding: 16px;
   border: none;
   border-radius: 8px;
-  background: #435e8c;
+  background: #73c6eb;
   color: white;
   font-size: 16px;
   display: flex;
@@ -726,10 +727,6 @@ main h3 {
   gap: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.next-button:hover {
-  background: #888888;
 }
 
 .arrow {
@@ -760,4 +757,146 @@ main h3 {
   left: 0;
   width: 100%;
   height: auto;
+}
+
+.terms-container {
+  position: relative;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+}
+
+.terms-content {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.humber-logo {
+  width: 280px;
+  margin-bottom: 40px;
+}
+
+.terms-content h1 {
+  color: #000;
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+.text-center {
+  color: #000;
+
+  font-family: Inter;
+  font-size: 21.442px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.terms-content h2 {
+  color: #000;
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.terms-scroll {
+  flex: 1;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.terms-scroll p {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.terms-actions {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.accept-button,
+.decline-button {
+  flex: 1;
+  padding: 15px 0;
+  border: none;
+  border-radius: 8px;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.accept-button {
+  background: #73c6eb;
+  color: white;
+}
+
+.decline-button {
+  background: white;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.btn {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Status Bar Styles */
+.status-bar {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  background: transparent;
+  position: relative;
+  z-index: 10;
+}
+
+/* Wave Background Styles */
+.wave-bg {
+  z-index: 0;
+  height: 150px;
+}
+
+.wave-bg svg {
+  width: 100%;
+  height: auto;
+}
+
+.mt-12rem {
+  margin-top: 12rem;
 }

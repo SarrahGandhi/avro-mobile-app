@@ -23,7 +23,7 @@ function handleLogin(event) {
     );
 
     // Redirect to home page
-    window.location.href = "home.html";
+    window.location.href = "terms.html";
   } else {
     alert("Email not found");
   }

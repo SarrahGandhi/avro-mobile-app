@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Registration - AVRO</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="eventData.js"></script>
+    <script src="userData.js"></script>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        background: #fff;
+        font-family: Inter, sans-serif;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 390px;
+        background: white;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .header {
+        background: #f3f6f9;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .header h1 {
+        color: #435e8c;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .back-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .event-content {
+        padding: 24px;
+      }
+
+      .event-title {
+        font-size: 32px;
+        color: #000;
+        margin: 0 0 16px 0;
+        font-weight: 600;
+      }
+
+      .event-description {
+        color: #000;
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .event-details {
+        margin-bottom: 24px;
+      }
+
+      .detail-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .detail-label {
+        font-weight: 600;
+        color: #000;
+      }
+
+      .detail-value {
+        color: #000;
+      }
+
+      .points-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+
+      .points-value {
+        color: #435e8c;
+        font-size: 48px;
+        font-weight: 600;
+      }
+
+      .points-label {
+        color: #435e8c;
+        font-size: 24px;
+      }
+
+      .registration-section {
+        margin-top: 40px;
+        display: none;
+      }
+
+      .cancel-section {
+        margin-top: 40px;
+        display: none;
+      }
+
+      .registration-title {
+        font-size: 24px;
+        color: #000;
+        margin-bottom: 24px;
+      }
+
+      .user-details {
+        margin-bottom: 32px;
+      }
+
+      .detail-group {
+        margin-bottom: 20px;
+      }
+
+      .detail-group h3 {
+        font-size: 16px;
+        color: #000;
+        margin: 0 0 8px 0;
+      }
+
+      .detail-group p {
+        font-size: 16px;
+        color: #000;
+        margin: 0;
+      }
+
+      .edit-link {
+        color: #435e8c;
+        text-decoration: underline;
+        font-size: 16px;
+        display: inline-block;
+        margin-top: 16px;
+      }
+
+      .register-button {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px);
+        max-width: 342px;
+        padding: 16px;
+        background: #435e8c;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .cancel-button {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 48px);
+        max-width: 342px;
+        padding: 16px;
+        background: white;
+        border: 2px solid #435e8c;
+        border-radius: 12px;
+        color: #435e8c;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .cancel-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .cancel-modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        width: calc(100% - 48px);
+        max-width: 342px;
+        border-radius: 12px;
+        padding: 24px;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .modal-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #000;
+        margin: 0;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #6f81a0;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .reason-options {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .reason-option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .reason-option input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #435e8c;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .reason-option label {
+        font-size: 16px;
+        color: #000;
+        cursor: pointer;
+      }
+
+      .submit-button {
+        width: 100%;
+        padding: 16px;
+        background: #435e8c;
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .success-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .success-modal.active {
+        display: flex;
+      }
+
+      .success-content {
+        background: white;
+        width: calc(100% - 48px);
+        max-width: 342px;
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .success-icon {
+        width: 112px;
+        height: 112px;
+        margin-bottom: 16px;
+      }
+
+      .success-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+        margin: 0 0 8px 0;
+      }
+
+      .success-subtitle {
+        font-size: 16px;
+        color: #000;
+        margin: 0;
+      }
+
+      .close-success {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #6f81a0;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .cancel-confirmation-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .cancel-confirmation-modal.active {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <button class="back-button" onclick="history.back()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <h1>Event Registration</h1>
+      </header>
+
+      <div class="event-content">
+        <h2 class="event-title" id="eventTitle"></h2>
+        <p class="event-description" id="eventDescription"></p>
+
+        <div class="event-details">
+          <div class="detail-row">
+            <span class="detail-label">Date:</span>
+            <span class="detail-value" id="eventDate"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Location:</span>
+            <span class="detail-value" id="eventLocation"></span>
+          </div>
+        </div>
+
+        <div class="points-section">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            fill="none"
+          >
+            <path
+              d="M24 4L30.24 16.6075L44 18.4775L34 28.2075L36.48 41.92L24 35.4075L11.52 41.92L14 28.2075L4 18.4775L17.76 16.6075L24 4Z"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="points-value" id="eventPoints"></span>
+          <span class="points-label">Pts</span>
+        </div>
+
+        <div class="registration-section" id="registrationSection">
+          <h2 class="registration-title">
+            Confirm your details for registration
+          </h2>
+          <div class="user-details">
+            <div class="detail-group">
+              <h3>Name</h3>
+              <p id="userName"></p>
+            </div>
+            <div class="detail-group">
+              <h3>Student Number</h3>
+              <p id="studentNumber"></p>
+            </div>
+            <div class="detail-group">
+              <h3>Student Email</h3>
+              <p id="studentEmail"></p>
+            </div>
+          </div>
+          <a href="#" class="edit-link">Edit</a>
+          <button class="register-button" onclick="registerForEvent()">
+            Register
+          </button>
+        </div>
+
+        <div class="cancel-section" id="cancelSection">
+          <button class="cancel-button" onclick="showCancelModal()">
+            Cancel Registration
+          </button>
+        </div>
+      </div>
+
+      <div class="cancel-modal" id="cancelModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Why do you want to cancel?</h2>
+            <button class="close-modal" onclick="closeCancelModal()">×</button>
+          </div>
+          <div class="reason-options">
+            <div class="reason-option">
+              <input
+                type="radio"
+                id="notInterested"
+                name="cancelReason"
+                value="Not Interested"
+                checked
+              />
+              <label for="notInterested">Not Interested</label>
+            </div>
+            <div class="reason-option">
+              <input
+                type="radio"
+                id="anyPlans"
+                name="cancelReason"
+                value="Any Plans"
+              />
+              <label for="anyPlans">Any Plans</label>
+            </div>
+            <div class="reason-option">
+              <input
+                type="radio"
+                id="classConflict"
+                name="cancelReason"
+                value="Class Conflict"
+              />
+              <label for="classConflict">Class Conflict</label>
+            </div>
+            <div class="reason-option">
+              <input
+                type="radio"
+                id="working"
+                name="cancelReason"
+                value="Working"
+              />
+              <label for="working">Working</label>
+            </div>
+            <div class="reason-option">
+              <input
+                type="radio"
+                id="other"
+                name="cancelReason"
+                value="Other, Not to say"
+              />
+              <label for="other">Other, Not to say</label>
+            </div>
+          </div>
+          <button class="submit-button" onclick="submitCancellation()">
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <div class="success-modal" id="successModal">
+        <div class="success-content">
+          <svg
+            class="success-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="112"
+            height="112"
+            viewBox="0 0 112 112"
+            fill="none"
+          >
+            <circle cx="56" cy="56" r="56" fill="#435E8C" />
+            <path
+              d="M75.3333 42L49.8333 67.5L36.6666 54.3333"
+              stroke="white"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <h2 class="success-title">Successfully</h2>
+          <p class="success-subtitle">Registered for the event</p>
+        </div>
+      </div>
+
+      <div class="cancel-confirmation-modal" id="cancelConfirmationModal">
+        <div class="success-content">
+          <svg
+            class="success-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="112"
+            height="112"
+            viewBox="0 0 112 112"
+            fill="none"
+          >
+            <circle cx="56" cy="56" r="56" fill="#435E8C" />
+            <path
+              d="M75.3333 42L49.8333 67.5L36.6666 54.3333"
+              stroke="white"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <h2 class="success-title">Thanks for Letting us Know!</h2>
+          <p class="success-subtitle">Your Registration is cancelled</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get event ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = parseInt(urlParams.get("id"));
+        const fromMyEvents = urlParams.get("fromMyEvents") === "true";
+
+        // Get event details
+        const event = window.getEventById(eventId);
+
+        // Get user data
+        const userData = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (event) {
+          // Update page title
+          document.title = `${event.name} - Event Registration`;
+
+          // Populate event details
+          document.getElementById("eventTitle").textContent = event.name;
+          document.getElementById("eventDescription").textContent =
+            event.description;
+          document.getElementById("eventDate").textContent = event.date;
+          document.getElementById("eventLocation").textContent = event.location;
+          document.getElementById("eventPoints").textContent = event.points;
+
+          // Show appropriate section based on source
+          if (fromMyEvents) {
+            document.getElementById("cancelSection").style.display = "block";
+            document.getElementById("registrationSection").style.display =
+              "none";
+          } else {
+            document.getElementById("registrationSection").style.display =
+              "block";
+            document.getElementById("cancelSection").style.display = "none";
+          }
+        } else {
+          // Handle event not found
+          window.location.href = "events.html";
+        }
+
+        if (userData) {
+          // Populate user details
+          document.getElementById("userName").textContent = userData.name;
+          document.getElementById("studentNumber").textContent = "N0231323";
+          document.getElementById("studentEmail").textContent =
+            "n0231323@humber.ca";
+        }
+      });
+
+      function registerForEvent() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = parseInt(urlParams.get("id"));
+
+        // Show success modal
+        document.getElementById("successModal").classList.add("active");
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = "events.html";
+        }, 2000);
+
+        return false; // Prevent form submission
+      }
+
+      function showCancelModal() {
+        document.getElementById("cancelModal").classList.add("active");
+      }
+
+      function closeCancelModal() {
+        document.getElementById("cancelModal").classList.remove("active");
+      }
+
+      function submitCancellation() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = parseInt(urlParams.get("id"));
+        const selectedReason = document.querySelector(
+          'input[name="cancelReason"]:checked'
+        ).value;
+
+        if (window.cancelEventRegistration(eventId, selectedReason)) {
+          // Close the reason modal
+          closeCancelModal();
+
+          // Show cancellation confirmation modal
+          document
+            .getElementById("cancelConfirmationModal")
+            .classList.add("active");
+
+          // Redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "events.html";
+          }, 2000);
+        }
+      }
+
+      // Close modal when clicking outside
+      document.getElementById("cancelModal").addEventListener("click", (e) => {
+        if (e.target.classList.contains("cancel-modal")) {
+          closeCancelModal();
+        }
+      });
+    </script>
+  </body>
+</html>
