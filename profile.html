@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - AVRO</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./userData.js" defer></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #fff;
+      }
+
+      .container {
+        max-width: 390px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: black;
+        background: white;
+        border-bottom: 1px solid #e4eaed;
+        z-index: 100;
+      }
+
+      .back-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .back-button svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .header h1 {
+        color: #435e8c;
+        font-size: 24px;
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      .profile-section {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+
+      .profile-info {
+        border-left: 1px solid #e4eaed;
+        padding-left: 20px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .profile-label {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 0;
+        color: #000;
+      }
+
+      .profile-role {
+        font-size: 24px;
+        color: #000;
+        margin: 5px 0 0 0;
+      }
+
+      .user-details {
+        padding: 30px 20px;
+      }
+
+      .user-name {
+        font-size: 32px;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        color: #000;
+      }
+
+      .email-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .email-icon {
+        margin-right: 10px;
+      }
+
+      .user-email {
+        font-size: 18px;
+        color: #000;
+      }
+
+      .preferences-section {
+        padding: 0 20px 30px 20px;
+      }
+
+      .preferences-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+        color: #000;
+      }
+
+      .edit-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #6b7fa1;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .edit-button svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .preferences-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .tag {
+        background: #e9eef2;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 16px;
+        color: #000;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <button class="back-button" onclick="history.back()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#435E8C"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <h1>Profile</h1>
+      </header>
+
+      <div class="profile-section">
+        <img
+          src="images/profile-placeholder.jpg"
+          alt="Profile"
+          class="profile-image"
+          id="profileImage"
+        />
+        <div class="profile-info">
+          <h2 class="profile-label">Profile</h2>
+          <p class="profile-role" id="userRole">Student</p>
+        </div>
+      </div>
+
+      <div class="user-details">
+        <h2 class="user-name" id="userName">Wendy Carmicheal</h2>
+        <div class="email-container">
+          <div class="email-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              ></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <span class="user-email" id="userEmail">n134578@humber.ca</span>
+        </div>
+      </div>
+
+      <div class="preferences-section">
+        <div class="preferences-header">
+          <h2 class="section-title">Event Preferences</h2>
+          <button class="edit-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              ></path>
+            </svg>
+            Edit
+          </button>
+        </div>
+        <div class="preferences-tags">
+          <span class="tag">Academic Events</span>
+          <span class="tag">Cultural and Social Events</span>
+          <span class="tag">Sports and Recreational Events</span>
+          <span class="tag">Community and Volunteer</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM Content Loaded - Profile Page");
+
+        // Get current user data
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+        console.log("currentUser from localStorage:", currentUser);
+        console.log("currentUserEmail from localStorage:", currentUserEmail);
+
+        let userData = null;
+
+        // Prioritize getting data from currentUser in localStorage
+        if (currentUser) {
+          userData = currentUser;
+          console.log("Using user data from localStorage:", userData);
+        }
+        // Then try to get it directly from userData.js using the email
+        else if (
+          currentUserEmail &&
+          window.userData &&
+          window.userData[currentUserEmail]
+        ) {
+          userData = window.userData[currentUserEmail];
+          console.log("Using user data from userData.js via email:", userData);
+        }
+
+        // If we have user data, update the UI
+        if (userData) {
+          // Update user name
+          const userNameElement = document.getElementById("userName");
+          if (userNameElement && userData.name) {
+            userNameElement.textContent = userData.name;
+          }
+
+          // Update user email
+          const userEmailElement = document.getElementById("userEmail");
+          if (userEmailElement) {
+            userEmailElement.textContent = userData.email || currentUserEmail;
+          }
+
+          // Update user role
+          const userRoleElement = document.getElementById("userRole");
+          if (userRoleElement && userData.role) {
+            userRoleElement.textContent = userData.role;
+          }
+
+          // Update profile image
+          const profileImageElement = document.getElementById("profileImage");
+          if (profileImageElement && userData.image) {
+            profileImageElement.src = userData.image;
+          } else if (profileImageElement && userData.profilePicture) {
+            profileImageElement.src = userData.profilePicture;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
