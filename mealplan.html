@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Plan Balance - AVRO</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./userData.js" defer></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: #fff;
+      }
+
+      .container {
+        max-width: 390px;
+        margin: 0 auto;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: black;
+        background: white;
+        border-bottom: 1px solid #e4eaed;
+        z-index: 100;
+      }
+
+      .back-button {
+        background: none;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-button svg {
+        min-width: 19px;
+        min-height: 15px;
+      }
+
+      .header h1 {
+        color: #435e8c;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .balance-section {
+        text-align: center;
+        padding: 40px 20px;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .balance-label {
+        color: #6f81a0;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .balance-amount {
+        color: #435e8c;
+        font-size: 36px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .plan-details {
+        padding: 20px;
+      }
+
+      .plan-card {
+        background: #f3f6f9;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .plan-title {
+        color: #000;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+      }
+
+      .plan-info {
+        color: #6f81a0;
+        font-size: 16px;
+        margin: 0 0 15px 0;
+      }
+
+      .flex-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+
+      .info-label {
+        color: #6f81a0;
+        font-size: 14px;
+      }
+
+      .info-value {
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .transaction-section {
+        padding: 20px;
+      }
+
+      .section-title {
+        color: #000;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 20px 0;
+      }
+
+      .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #e4eaed;
+      }
+
+      .transaction-left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .transaction-title {
+        color: #000;
+        font-size: 16px;
+        margin: 0 0 5px 0;
+      }
+
+      .transaction-date {
+        color: #6f81a0;
+        font-size: 14px;
+      }
+
+      .transaction-amount {
+        color: #435e8c;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .transaction-amount.negative {
+        color: #e53935;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <button class="back-button" onclick="history.back()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <h1>Meal Plan Balance</h1>
+      </header>
+
+      <div class="balance-section">
+        <div class="balance-label">Available Balance</div>
+        <div class="balance-amount" id="mealPlanBalanceAmount">$0.00</div>
+      </div>
+
+      <div class="plan-details">
+        <div class="plan-card">
+          <h3 class="plan-title">Standard Meal Plan</h3>
+          <p class="plan-info">Fall 2023 - Winter 2024</p>
+
+          <div class="flex-row">
+            <span class="info-label">Plan Value:</span>
+            <span class="info-value">$2,500.00</span>
+          </div>
+          <div class="flex-row">
+            <span class="info-label">Used:</span>
+            <span class="info-value">$1,249.50</span>
+          </div>
+          <div class="flex-row">
+            <span class="info-label">Remaining:</span>
+            <span class="info-value">$1,250.50</span>
+          </div>
+          <div class="flex-row">
+            <span class="info-label">Expiry Date:</span>
+            <span class="info-value">April 30, 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="transaction-section">
+        <h3 class="section-title">Recent Transactions</h3>
+
+        <div class="transaction-item">
+          <div class="transaction-left">
+            <div class="transaction-title">Food Court</div>
+            <div class="transaction-date">May 15, 2023 • 12:45 PM</div>
+          </div>
+          <div class="transaction-amount negative">-$12.50</div>
+        </div>
+
+        <div class="transaction-item">
+          <div class="transaction-left">
+            <div class="transaction-title">Starbucks</div>
+            <div class="transaction-date">May 14, 2023 • 9:30 AM</div>
+          </div>
+          <div class="transaction-amount negative">-$5.75</div>
+        </div>
+
+        <div class="transaction-item">
+          <div class="transaction-left">
+            <div class="transaction-title">Cafeteria Lunch</div>
+            <div class="transaction-date">May 13, 2023 • 1:15 PM</div>
+          </div>
+          <div class="transaction-amount negative">-$8.95</div>
+        </div>
+
+        <div class="transaction-item">
+          <div class="transaction-left">
+            <div class="transaction-title">Balance Added</div>
+            <div class="transaction-date">May 1, 2023 • 9:00 AM</div>
+          </div>
+          <div class="transaction-amount">+$200.00</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DOM Content Loaded");
+
+        // Get current user data
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+        console.log("currentUser from localStorage:", currentUser);
+        console.log("currentUserEmail from localStorage:", currentUserEmail);
+
+        let mealPlanBalance = null;
+
+        // Prioritize getting data from currentUser in localStorage
+        if (currentUser && currentUser.mealPlanBalance !== undefined) {
+          // Get data from currentUser object in localStorage
+          mealPlanBalance = currentUser.mealPlanBalance;
+          console.log(
+            "Using mealPlanBalance from currentUser in localStorage:",
+            mealPlanBalance
+          );
+        }
+        // Then try to get it directly from userData using the email
+        else if (currentUserEmail && userData && userData[currentUserEmail]) {
+          mealPlanBalance = userData[currentUserEmail].mealPlanBalance;
+          console.log(
+            "Using mealPlanBalance from userData.js via email:",
+            mealPlanBalance
+          );
+        }
+        // Fallback to a default user if needed
+        else if (typeof userData !== "undefined") {
+          const firstUserEmail = Object.keys(userData)[0];
+          if (firstUserEmail && userData[firstUserEmail]) {
+            mealPlanBalance = userData[firstUserEmail].mealPlanBalance;
+            console.log(
+              "Using fallback mealPlanBalance from first user in userData:",
+              mealPlanBalance
+            );
+          }
+        }
+
+        // If we have a meal plan balance, update the UI
+        if (mealPlanBalance !== null) {
+          // Format balance as currency
+          const mealFormatter = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2,
+          });
+
+          const formattedBalance = mealFormatter.format(mealPlanBalance);
+
+          // Update the balance display
+          const balanceElement = document.getElementById(
+            "mealPlanBalanceAmount"
+          );
+          if (balanceElement) {
+            balanceElement.textContent = formattedBalance;
+            console.log("Updated balance display:", formattedBalance);
+          }
+
+          // Also update the plan details
+          const planValue = 2500.0;
+          const usedAmount = planValue - mealPlanBalance;
+
+          // Update plan value
+          const planValueElement = document.querySelector(
+            ".flex-row:nth-child(1) .info-value"
+          );
+          if (planValueElement) {
+            planValueElement.textContent = mealFormatter.format(planValue);
+          }
+
+          // Update used amount
+          const usedElement = document.querySelector(
+            ".flex-row:nth-child(2) .info-value"
+          );
+          if (usedElement) {
+            usedElement.textContent = mealFormatter.format(usedAmount);
+          }
+
+          // Update remaining amount
+          const remainingElement = document.querySelector(
+            ".flex-row:nth-child(3) .info-value"
+          );
+          if (remainingElement) {
+            remainingElement.textContent = formattedBalance;
+          }
+        } else {
+          console.error("Could not find mealPlanBalance for current user");
+        }
+      });
+    </script>
+  </body>
+</html>

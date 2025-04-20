@@ -269,6 +269,7 @@
 
       .leaderboard-list {
         padding: 0 20px;
+        z-index: 1000;
       }
 
       .leaderboard-item {
@@ -483,17 +484,22 @@
           </svg>
         </button>
         <h1>Rewards</h1>
-        <div class="header-right"></div>
+        <div class="header-right">
+          <div class="balance-item"><span id="userPoints">0</span> Points</div>
+          <div class="balance-item">
+            $<span id="mealPlanBalance">0.00</span>
+          </div>
+        </div>
       </header>
 
       <div class="tab-container">
-        <button class="tab" onclick="switchTab('leaderboard')">
+        <button class="tab active" onclick="switchTab('leaderboard')">
           Leaderboard
         </button>
-        <button class="tab active" onclick="switchTab('redeem')">Redeem</button>
+        <button class="tab" onclick="switchTab('redeem')">Redeem</button>
       </div>
 
-      <div class="tab-content" id="leaderboardContent">
+      <div class="tab-content active" id="leaderboardContent">
         <div class="leaderboard">
           <div class="podium">
             <!-- Second Place -->
@@ -539,7 +545,7 @@
         </div>
       </div>
 
-      <div class="tab-content active" id="redeemContent">
+      <div class="tab-content" id="redeemContent">
         <div class="gift-card-list">
           <div class="gift-card-item">
             <div class="gift-card-left">
@@ -733,13 +739,25 @@
           ).src = topThree[2].image;
         }
 
-        // Get users ranked 4th and below
-        const remainingUsers = sortedUsers.slice(3);
-
-        // Populate leaderboard list
+        // Populate leaderboard list with ALL users (not just 4th and below)
         const leaderboardList = document.getElementById("leaderboardList");
-        remainingUsers.forEach((user, index) => {
-          const rank = index + 4;
+
+        // Add a title for the full ranking section
+        const titleElement = document.createElement("h2");
+        titleElement.textContent = "Full Rankings";
+        titleElement.style.color = "#435e8c";
+        titleElement.style.marginTop = "30px";
+        titleElement.style.marginBottom = "20px";
+        titleElement.style.fontSize = "20px";
+        titleElement.style.fontWeight = "600";
+        leaderboardList.appendChild(titleElement);
+
+        // Display all users in order
+        sortedUsers.forEach((user, index) => {
+          const rank = index + 1;
+          // Only show users ranked 4th and below in the full rankings section
+          if (rank <= 3) return;
+
           const item = document.createElement("div");
           item.className = "leaderboard-item";
           item.innerHTML = `
