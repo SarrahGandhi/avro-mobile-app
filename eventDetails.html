@@ -592,13 +592,16 @@
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = parseInt(urlParams.get("id"));
 
-        // Show success modal
-        document.getElementById("successModal").classList.add("active");
+        // Call the registerForEvent function from eventData.js
+        if (window.registerForEvent(eventId)) {
+          // Show success modal
+          document.getElementById("successModal").classList.add("active");
 
-        // Redirect after 2 seconds
-        setTimeout(() => {
-          window.location.href = "events.html";
-        }, 2000);
+          // Redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "events.html";
+          }, 2000);
+        }
 
         return false; // Prevent form submission
       }

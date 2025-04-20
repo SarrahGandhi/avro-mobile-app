@@ -169,3 +169,162 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM Content Loaded");
+
+  // Get current user data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+  console.log("currentUser from localStorage:", currentUser);
+  console.log("currentUserEmail from localStorage:", currentUserEmail);
+
+  let mealPlanBalance = null;
+
+  // Prioritize getting data from currentUser in localStorage
+  if (currentUser && currentUser.mealPlanBalance !== undefined) {
+    // Get data from currentUser object in localStorage
+    mealPlanBalance = currentUser.mealPlanBalance;
+    console.log(
+      "Using mealPlanBalance from currentUser in localStorage:",
+      mealPlanBalance
+    );
+  }
+  // Then try to get it directly from userData using the email
+  else if (currentUserEmail && userData && userData[currentUserEmail]) {
+    mealPlanBalance = userData[currentUserEmail].mealPlanBalance;
+    console.log(
+      "Using mealPlanBalance from userData.js via email:",
+      mealPlanBalance
+    );
+  }
+  // Fallback to a default user if needed
+  else if (typeof userData !== "undefined") {
+    const firstUserEmail = Object.keys(userData)[0];
+    if (firstUserEmail && userData[firstUserEmail]) {
+      mealPlanBalance = userData[firstUserEmail].mealPlanBalance;
+      console.log(
+        "Using fallback mealPlanBalance from first user in userData:",
+        mealPlanBalance
+      );
+    }
+  }
+
+  // If we have a meal plan balance, update the UI
+  if (mealPlanBalance !== null) {
+    // Format balance as currency
+    const mealFormatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    });
+
+    const formattedBalance = mealFormatter.format(mealPlanBalance);
+
+    // Update the balance display
+    const balanceElement = document.getElementById("mealPlanBalanceAmount");
+    if (balanceElement) {
+      balanceElement.textContent = formattedBalance;
+      console.log("Updated balance display:", formattedBalance);
+    }
+
+    // Also update the plan details
+    const planValue = 2500.0;
+    const usedAmount = planValue - mealPlanBalance;
+
+    // Update plan value
+    const planValueElement = document.querySelector(
+      ".flex-row:nth-child(1) .info-value"
+    );
+    if (planValueElement) {
+      planValueElement.textContent = mealFormatter.format(planValue);
+    }
+
+    // Update used amount
+    const usedElement = document.querySelector(
+      ".flex-row:nth-child(2) .info-value"
+    );
+    if (usedElement) {
+      usedElement.textContent = mealFormatter.format(usedAmount);
+    }
+
+    // Update remaining amount
+    const remainingElement = document.querySelector(
+      ".flex-row:nth-child(3) .info-value"
+    );
+    if (remainingElement) {
+      remainingElement.textContent = formattedBalance;
+    }
+  } else {
+    console.error("Could not find mealPlanBalance for current user");
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM Content Loaded - Printing Page");
+
+  // Get current user data
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUserEmail = localStorage.getItem("currentUserEmail");
+
+  console.log("currentUser from localStorage:", currentUser);
+  console.log("currentUserEmail from localStorage:", currentUserEmail);
+
+  let printingBalance = null;
+
+  // Prioritize getting data from currentUser in localStorage
+  if (currentUser && currentUser.printingBalance !== undefined) {
+    // Get data from currentUser object in localStorage
+    printingBalance = currentUser.printingBalance;
+    console.log(
+      "Using printingBalance from currentUser in localStorage:",
+      printingBalance
+    );
+  }
+  // Then try to get it directly from userData using the email
+  else if (currentUserEmail && userData && userData[currentUserEmail]) {
+    printingBalance = userData[currentUserEmail].printingBalance;
+    console.log(
+      "Using printingBalance from userData.js via email:",
+      printingBalance
+    );
+  }
+  // Fallback to a default user if needed
+  else if (typeof userData !== "undefined") {
+    const firstUserEmail = Object.keys(userData)[0];
+    if (firstUserEmail && userData[firstUserEmail]) {
+      printingBalance = userData[firstUserEmail].printingBalance;
+      console.log(
+        "Using fallback printingBalance from first user in userData:",
+        printingBalance
+      );
+    }
+  }
+
+  // If we have a printing balance, update the UI
+  if (printingBalance !== null) {
+    // Format balance as currency
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    });
+
+    const formattedBalance = formatter.format(printingBalance);
+
+    // Update the balance display
+    const balanceElement = document.getElementById("printingBalanceAmount");
+    if (balanceElement) {
+      balanceElement.textContent = formattedBalance;
+      console.log("Updated printing balance display:", formattedBalance);
+    }
+
+    // Set pages data
+    const pagesPrinted = Math.floor(Math.random() * 50) + 10; // Random number for demo
+    const freePages = 100 - pagesPrinted;
+
+    document.getElementById("pagesPrinted").textContent = pagesPrinted;
+    document.getElementById("freePages").textContent = freePages;
+  } else {
+    console.error("Could not find printingBalance for current user");
+  }
+});

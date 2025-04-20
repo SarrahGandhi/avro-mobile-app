@@ -25,13 +25,28 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        color: black;
+        background: white;
+        border-bottom: 1px solid #e4eaed;
+        z-index: 100;
       }
 
       .back-button {
         background: none;
         border: none;
-        padding: 0;
+        padding: 10px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .back-button svg {
+        min-width: 19px;
+        min-height: 15px;
+        fill: #435e8c;
       }
 
       .header h1 {
@@ -40,26 +55,32 @@
         margin: 0;
       }
 
-      .points-section {
-        text-align: center;
-        padding: 20px;
-        border-bottom: 1px solid #e4eaed;
+      .header-right {
+        margin-left: auto;
+        color: #435e8c;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
       }
 
-      .points-text {
-        color: #435e8c;
-        font-size: 24px;
-        margin: 0;
+      .balance-item {
+        margin-bottom: 4px;
+      }
+
+      .balance-item:last-child {
+        margin-bottom: 0;
       }
 
       .tab-container {
         display: flex;
-        border-bottom: 1px solid #e4eaed;
+        padding: 10px 20px;
       }
 
       .tab {
         flex: 1;
-        padding: 16px;
+        padding: 12px;
         text-align: center;
         color: #435e8c;
         font-size: 18px;
@@ -67,23 +88,14 @@
         background: none;
         border: none;
         position: relative;
+        font-weight: 500;
       }
 
       .tab.active {
-        font-weight: 600;
+        background: #f3f6f9;
+        border-radius: 12px;
       }
 
-      .tab.active::after {
-        content: "";
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: #435e8c;
-      }
-
-      /* Add new styles for redeem content */
       .tab-content {
         display: none;
       }
@@ -256,7 +268,7 @@
       }
 
       .leaderboard-list {
-        margin-top: 20px;
+        padding: 0 20px;
       }
 
       .leaderboard-item {
@@ -395,6 +407,59 @@
         cursor: pointer;
         color: #435e8c;
       }
+
+      /* Error Modal Styles */
+      .error-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(228, 234, 237, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .error-modal-content {
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        max-width: 350px;
+      }
+
+      .error-icon {
+        width: 80px;
+        height: 80px;
+        background: #d32f2f;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+
+      .error-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+      }
+
+      .error-title {
+        color: #d32f2f;
+        font-size: 24px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .error-message {
+        color: #435e8c;
+        font-size: 20px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
     </style>
   </head>
   <body>
@@ -418,13 +483,8 @@
           </svg>
         </button>
         <h1>Rewards</h1>
+        <div class="header-right"></div>
       </header>
-
-      <div class="points-section">
-        <h2 class="points-text">
-          You have <span id="userPoints"></span> HawkPoints
-        </h2>
-      </div>
 
       <div class="tab-container">
         <button class="tab" onclick="switchTab('leaderboard')">
@@ -544,6 +604,24 @@
           </div>
         </div>
       </div>
+
+      <!-- Error Modal -->
+      <div class="error-modal" id="errorModal">
+        <div class="error-modal-content">
+          <button class="close-modal" onclick="closeErrorModal()">×</button>
+          <div class="error-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          </div>
+          <div class="error-title">Insufficient Points</div>
+          <div class="error-message">
+            You don't have enough HawkPoints to redeem this gift card.
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -551,10 +629,59 @@
         // Get current user data
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         const currentUserEmail = localStorage.getItem("currentUserEmail");
+        let userPoints = 0;
+        let mealPlanBalance = 0;
 
-        // Display user's points
-        document.getElementById("userPoints").textContent =
-          currentUser?.points || "0";
+        console.log("Current user:", currentUser);
+        console.log("Current user email:", currentUserEmail);
+        console.log("User data available:", userData);
+
+        // Set a default user if none exists
+        if (
+          !localStorage.getItem("currentUser") &&
+          !localStorage.getItem("currentUserEmail")
+        ) {
+          // Set a default user - first user in userData object
+          const firstUserEmail = Object.keys(userData)[0];
+          localStorage.setItem("currentUserEmail", firstUserEmail);
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify(userData[firstUserEmail])
+          );
+          console.log("Setting default user:", firstUserEmail);
+        }
+
+        // Get and display user's points and meal plan balance
+        if (currentUser) {
+          userPoints = currentUser.points || 0;
+          mealPlanBalance = currentUser.mealPlanBalance || 0;
+          console.log(
+            "Using data from currentUser:",
+            userPoints,
+            mealPlanBalance
+          );
+        } else if (currentUserEmail && userData[currentUserEmail]) {
+          userPoints = userData[currentUserEmail].points || 0;
+          mealPlanBalance = userData[currentUserEmail].mealPlanBalance || 0;
+          console.log("Using data from userData:", userPoints, mealPlanBalance);
+        } else {
+          // Default to first user in userData if no current user
+          const firstUserEmail = Object.keys(userData)[0];
+          if (firstUserEmail) {
+            userPoints = userData[firstUserEmail].points || 0;
+            mealPlanBalance = userData[firstUserEmail].mealPlanBalance || 0;
+            console.log(
+              "Using data from first user:",
+              userPoints,
+              mealPlanBalance
+            );
+          }
+        }
+
+        // Set the points and meal plan balance display
+        document.getElementById("userPoints").textContent = userPoints;
+        document.getElementById("mealPlanBalance").textContent =
+          mealPlanBalance.toFixed(2);
 
         // Convert userData object to array and sort by points
         const sortedUsers = Object.entries(userData)
@@ -570,35 +697,41 @@
         const topThree = sortedUsers.slice(0, 3);
 
         // Update podium display
-        document.querySelector(
-          ".podium-place:nth-child(2) .winner-name"
-        ).textContent = topThree[0].name;
-        document.querySelector(
-          ".podium-place:nth-child(2) .winner-points"
-        ).textContent = `${topThree[0].points} Points`;
-        document.querySelector(
-          ".podium-place:nth-child(2) .profile-pic img"
-        ).src = topThree[0].image;
+        if (topThree.length > 0) {
+          document.querySelector(
+            ".podium-place:nth-child(2) .winner-name"
+          ).textContent = topThree[0].name;
+          document.querySelector(
+            ".podium-place:nth-child(2) .winner-points"
+          ).textContent = `${topThree[0].points} Points`;
+          document.querySelector(
+            ".podium-place:nth-child(2) .profile-pic img"
+          ).src = topThree[0].image;
+        }
 
-        document.querySelector(
-          ".podium-place:nth-child(1) .winner-name"
-        ).textContent = topThree[1].name;
-        document.querySelector(
-          ".podium-place:nth-child(1) .winner-points"
-        ).textContent = `${topThree[1].points} Points`;
-        document.querySelector(
-          ".podium-place:nth-child(1) .profile-pic img"
-        ).src = topThree[1].image;
+        if (topThree.length > 1) {
+          document.querySelector(
+            ".podium-place:nth-child(1) .winner-name"
+          ).textContent = topThree[1].name;
+          document.querySelector(
+            ".podium-place:nth-child(1) .winner-points"
+          ).textContent = `${topThree[1].points} Points`;
+          document.querySelector(
+            ".podium-place:nth-child(1) .profile-pic img"
+          ).src = topThree[1].image;
+        }
 
-        document.querySelector(
-          ".podium-place:nth-child(3) .winner-name"
-        ).textContent = topThree[2].name;
-        document.querySelector(
-          ".podium-place:nth-child(3) .winner-points"
-        ).textContent = `${topThree[2].points} Points`;
-        document.querySelector(
-          ".podium-place:nth-child(3) .profile-pic img"
-        ).src = topThree[2].image;
+        if (topThree.length > 2) {
+          document.querySelector(
+            ".podium-place:nth-child(3) .winner-name"
+          ).textContent = topThree[2].name;
+          document.querySelector(
+            ".podium-place:nth-child(3) .winner-points"
+          ).textContent = `${topThree[2].points} Points`;
+          document.querySelector(
+            ".podium-place:nth-child(3) .profile-pic img"
+          ).src = topThree[2].image;
+        }
 
         // Get users ranked 4th and below
         const remainingUsers = sortedUsers.slice(3);
@@ -631,6 +764,7 @@
 
         const confirmBtn = document.getElementById("confirmRedeemBtn");
         const successModal = document.getElementById("successModal");
+        const errorModal = document.getElementById("errorModal");
         let selectedPoints = null;
 
         // Handle redeem button clicks
@@ -648,19 +782,52 @@
         // Handle confirm redeem button click
         confirmBtn.addEventListener("click", function () {
           if (selectedPoints) {
-            document.getElementById("pointsRedeemed").textContent =
-              selectedPoints;
-            successModal.style.display = "flex";
+            const pointsNeeded = parseInt(selectedPoints);
 
-            // Update user points
-            const currentPoints = parseInt(
-              document.getElementById("userPoints").textContent
-            );
-            const newPoints = currentPoints - parseInt(selectedPoints);
-            document.getElementById("userPoints").textContent = newPoints;
+            // Check if user has enough points
+            if (userPoints >= pointsNeeded) {
+              // User has enough points
+              document.getElementById("pointsRedeemed").textContent =
+                selectedPoints;
+              successModal.style.display = "flex";
+
+              // Update user points
+              userPoints -= pointsNeeded;
+              document.getElementById("userPoints").textContent = userPoints;
+
+              // Update localStorage
+              if (currentUser) {
+                currentUser.points = userPoints;
+                localStorage.setItem(
+                  "currentUser",
+                  JSON.stringify(currentUser)
+                );
+              }
+
+              // Update userData object
+              if (currentUserEmail && userData[currentUserEmail]) {
+                userData[currentUserEmail].points = userPoints;
+              }
+            } else {
+              // User doesn't have enough points
+              errorModal.style.display = "flex";
+            }
           }
         });
       });
+
+      function closeSuccessModal() {
+        document.getElementById("successModal").style.display = "none";
+        // Reset selection
+        document
+          .querySelectorAll(".redeem-button")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.getElementById("confirmRedeemBtn").style.display = "none";
+      }
+
+      function closeErrorModal() {
+        document.getElementById("errorModal").style.display = "none";
+      }
 
       function switchTab(tabName) {
         // Remove active class from all tabs and contents
@@ -679,15 +846,6 @@
           document.querySelector(".tab:last-child").classList.add("active");
           document.getElementById("redeemContent").classList.add("active");
         }
-      }
-
-      function closeSuccessModal() {
-        document.getElementById("successModal").style.display = "none";
-        // Reset selection
-        document
-          .querySelectorAll(".redeem-button")
-          .forEach((btn) => btn.classList.remove("active"));
-        document.getElementById("confirmRedeemBtn").style.display = "none";
       }
     </script>
   </body>

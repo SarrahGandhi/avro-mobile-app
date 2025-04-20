@@ -5,6 +5,8 @@ const userData = {
     image: "images/sarrah.jpg",
     lives: 5,
     points: 4500,
+    printingBalance: 25.75,
+    mealPlanBalance: 1250.5,
     notifications: [
       {
         title: "Attended the Ignite Concert",
@@ -25,6 +27,8 @@ const userData = {
     image: "images/john.jpg",
     lives: 3,
     points: 3200,
+    printingBalance: 50.0,
+    mealPlanBalance: 975.25,
     notifications: [
       {
         title: "Faculty Meeting Reminder",
@@ -40,6 +44,8 @@ const userData = {
     image: "images/emma.jpeg",
     lives: 4,
     points: 5200,
+    printingBalance: 32.5,
+    mealPlanBalance: 1875.0,
     notifications: [
       {
         title: "Achievement Unlocked",
@@ -60,6 +66,8 @@ const userData = {
     image: "images/michael.jpg",
     lives: 5,
     points: 6100,
+    printingBalance: 65.25,
+    mealPlanBalance: 2100.75,
     notifications: [
       {
         title: "Research Grant Opportunity",
@@ -75,6 +83,8 @@ const userData = {
     image: "images/lisa.jpg",
     lives: 4,
     points: 3800,
+    printingBalance: 18.9,
+    mealPlanBalance: 850.25,
     notifications: [
       {
         title: "Event Registration Success",
@@ -94,6 +104,8 @@ const userData = {
     email: "john.doe@example.com",
     points: 2500,
     lives: 3,
+    printingBalance: 15.5,
+    mealPlanBalance: 750.0,
     profileImage: "assets/profile-1.jpg",
     notifications: [
       {
@@ -123,6 +135,8 @@ const userData = {
     email: "jane.smith@example.com",
     points: 3200,
     lives: 4,
+    printingBalance: 28.75,
+    mealPlanBalance: 1450.5,
     profileImage: "assets/profile-2.jpg",
     notifications: [
       {
@@ -137,6 +151,8 @@ const userData = {
   "test@example.com": {
     password: "password123",
     name: "John Doe",
+    printingBalance: 10.25,
+    mealPlanBalance: 500.25,
     profilePicture: "assets/profile-picture.jpg",
     notifications: [
       {

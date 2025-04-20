@@ -12,6 +12,9 @@ function handleLogin(event) {
 
   // Check if user exists in mock data
   if (userData[email]) {
+    // Store user email in localStorage for direct access to userData
+    localStorage.setItem("currentUserEmail", email);
+
     // Store user data in localStorage
     localStorage.setItem(
       "currentUser",
@@ -19,6 +22,11 @@ function handleLogin(event) {
         email: email,
         name: userData[email].name,
         profilePicture: userData[email].profilePicture,
+        points: userData[email].points,
+        lives: userData[email].lives,
+        printingBalance: userData[email].printingBalance,
+        mealPlanBalance: userData[email].mealPlanBalance,
+        role: userData[email].role,
       })
     );
 

@@ -122,6 +122,34 @@
           transform: scale(1.2);
         }
       }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 5px 20px;
+        color: #435e8c;
+        text-decoration: none;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+      }
+
+      .menu-item svg {
+        margin-right: 16px;
+      }
+
+      .menu-text {
+        flex: 1;
+      }
+      .balance-amount {
+        font-weight: 600;
+      }
+
+      .balance-value {
+        color: #435e8c;
+        font-weight: 600;
+        font-size: 16px;
+        margin-left: auto;
+      }
     </style>
   </head>
   <body>
@@ -182,27 +210,66 @@
         <a href="#" class="menu-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="26"
-            height="26"
-            viewBox="0 0 26 26"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
             fill="none"
           >
             <path
-              d="M21.2105 6.33348V2.33337C21.2105 1.97974 21.0774 1.64059 20.8406 1.39053C20.6037 1.14048 20.2824 1 19.9474 1H3.52632C2.8563 1 2.21372 1.28096 1.73994 1.78107C1.26616 2.28118 1 2.95948 1 3.66674C1 4.374 1.26616 5.0523 1.73994 5.55241C2.21372 6.05252 2.8563 6.33348 3.52632 6.33348H22.4737C22.8087 6.33348 23.13 6.47396 23.3669 6.72401C23.6038 6.97407 23.7368 7.31322 23.7368 7.66685V13.0003M23.7368 13.0003H19.9474C19.2773 13.0003 18.6348 13.2813 18.161 13.7814C17.6872 14.2815 17.4211 14.9598 17.4211 15.6671C17.4211 16.3743 17.6872 17.0526 18.161 17.5527C18.6348 18.0528 19.2773 18.3338 19.9474 18.3338H23.7368C24.0719 18.3338 24.3931 18.1933 24.63 17.9433C24.8669 17.6932 25 17.3541 25 17.0004V14.3337C25 13.9801 24.8669 13.6409 24.63 13.3909C24.3931 13.1408 24.0719 13.0003 23.7368 13.0003Z"
+              d="M5 8H19V16H5V8Z"
               stroke="#435E8C"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
             <path
-              d="M1 3.66797V22.3351C1 23.0424 1.26616 23.7207 1.73994 24.2208C2.21372 24.7209 2.8563 25.0019 3.52632 25.0019H22.4737C22.8087 25.0019 23.13 24.8614 23.3669 24.6114C23.6038 24.3613 23.7368 24.0221 23.7368 23.6685V18.335"
+              d="M19 12H21V8C21 7.46957 20.7893 6.96086 20.4142 6.58579C20.0391 6.21071 19.5304 6 19 6H5C4.46957 6 3.96086 6.21071 3.58579 6.58579C3.21071 6.96086 3 7.46957 3 8V12H5"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M17 17H7V22H17V17Z"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M7 6V3H17V6"
               stroke="#435E8C"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             />
           </svg>
-          Manage Plans & Balances
+          <span class="menu-text">Printing Balance</span>
+          <div class="balance-amount" id="printingBalanceAmount">$0.00</div>
+        </a>
+        <a href="#" class="menu-item">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M4 18H20M4 6H20M4 12H20"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M9 22V2M15 22V2"
+              stroke="#435E8C"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="menu-text">Printing Balance</span>
+          <div class="balance-amount" id="mealPlanBalanceAmount">$0.00</div>
         </a>
         <a href="events.html" class="menu-item">
           <svg
@@ -219,7 +286,7 @@
           </svg>
           Events
         </a>
-        <a href="#" class="menu-item">
+        <a href="rewards.html" class="menu-item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -726,9 +793,20 @@
           document.getElementById("userName").textContent = userData.name;
           document.getElementById("userNameBarcode").textContent =
             userData.name;
+
+          // Set printing balance if available
+          if (userData.printingBalance) {
+            document.getElementById("printingBalance").textContent =
+              "$" + userData.printingBalance.toFixed(2);
+          }
         } else {
           // Redirect to login if no user data found
           window.location.href = "index.html";
+        }
+
+        // Show tutorial if it hasn't been shown before
+        if (!localStorage.getItem("tutorialShown")) {
+          showTutorial();
         }
       });
 
