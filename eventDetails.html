@@ -504,25 +504,27 @@
       <div class="success-modal" id="successModal">
         <div class="success-content">
           <button class="close-success" onclick="closeSuccessModal()">×</button>
-          <svg
-            class="success-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="112"
-            height="112"
-            viewBox="0 0 112 112"
-            fill="none"
-          >
-            <circle cx="56" cy="56" r="56" fill="#435E8C" />
-            <path
-              d="M75.3333 42L49.8333 67.5L36.6666 54.3333"
-              stroke="white"
-              stroke-width="4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <h2 class="success-title">Successfully</h2>
-          <p class="success-subtitle">Registered for the event</p>
+          <div class="modal-inner">
+            <svg
+              class="success-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="112"
+              height="112"
+              viewBox="0 0 112 112"
+              fill="none"
+            >
+              <circle cx="56" cy="56" r="56" fill="#435E8C" />
+              <path
+                d="M75.3333 42L49.8333 67.5L36.6666 54.3333"
+                stroke="white"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <h2 class="success-title">Successfully</h2>
+            <p class="success-subtitle">Registered for the event</p>
+          </div>
         </div>
       </div>
 
@@ -554,6 +556,12 @@
     <script>
       // Track modal open state for debugging
       let modalIsOpen = false;
+
+      // Make functions available globally for console debugging
+      window.testModal = function () {
+        console.log("Test function called from console");
+        showSuccessModal();
+      };
 
       document.addEventListener("DOMContentLoaded", function () {
         // Get event ID from URL parameters
