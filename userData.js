@@ -21,9 +21,9 @@ const userData = {
     ],
     expiryDate: "2024-06-01",
   },
-  "john.doe@gmail.com": {
-    name: "John Doe",
-    role: "Faculty",
+  "n01638795@humber.ca": {
+    name: "Deep Soni",
+    role: "Student",
     image: "images/john.jpg",
     lives: 3,
     points: 3200,
@@ -31,15 +31,20 @@ const userData = {
     mealPlanBalance: 975.25,
     notifications: [
       {
-        title: "Faculty Meeting Reminder",
-        description: "Don't forget about tomorrow's meeting at 10 AM.",
+        title: "Ignite Concert",
+        description: "You've earned 10 points!",
+        isRead: false,
+      },
+      {
+        title: "New Event",
+        description: "Check out the upcoming Wellness Workshop!",
         isRead: false,
       },
     ],
     expiryDate: "2024-05-15",
   },
-  "emma.wilson@gmail.com": {
-    name: "Emma Wilson",
+  "n12345678@humber.ca": {
+    name: "Wendy Carmichael",
     role: "Student",
     image: "images/emma.jpeg",
     lives: 4,
