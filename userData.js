@@ -46,7 +46,7 @@ const userData = {
   "n12345678@humber.ca": {
     name: "Wendy Carmichael",
     role: "Student",
-    image: "images/emma.jpeg",
+    image: "images/wendy.jpeg",
     lives: 4,
     points: 5200,
     printingBalance: 32.5,
@@ -142,7 +142,7 @@ const userData = {
     lives: 4,
     printingBalance: 28.75,
     mealPlanBalance: 1450.5,
-    profileImage: "assets/profile-2.jpg",
+    profileImage: "images/jane.jpg",
     notifications: [
       {
         id: 1,

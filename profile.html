@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile - AVRO</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="./userData.js" defer></script>
     <style>
       body {
         margin: 0;
@@ -169,6 +168,24 @@
     </style>
   </head>
   <body>
+    <script>
+      // Hard-coded data for testing
+      const hardcodedUserData = {
+        "n12345678@humber.ca": {
+          name: "Wendy Carmichael",
+          role: "Student",
+          image: "images/wendy.jpeg",
+        },
+      };
+
+      // Debug output for hard-coded data
+      console.log("Hardcoded data:", hardcodedUserData);
+      console.log(
+        "Image path:",
+        hardcodedUserData["n12345678@humber.ca"].image
+      );
+    </script>
+    <script src="userData.js"></script>
     <div class="container">
       <header class="header">
         <button class="back-button" onclick="history.back()">
@@ -189,8 +206,9 @@
       </header>
 
       <div class="profile-section">
+        <!-- Direct image reference with no JavaScript -->
         <img
-          src="images/profile-placeholder.jpg"
+          src="images/wendy.jpeg"
           alt="Profile"
           class="profile-image"
           id="profileImage"
@@ -261,62 +279,21 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        console.log("DOM Content Loaded - Profile Page");
+      // Replace the DOMContentLoaded handler with direct assignment
+      window.onload = function () {
+        console.log("Window loaded");
 
-        // Get current user data
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        const currentUserEmail = localStorage.getItem("currentUserEmail");
+        // Get user data
+        const userData = hardcodedUserData["n12345678@humber.ca"];
 
-        console.log("currentUser from localStorage:", currentUser);
-        console.log("currentUserEmail from localStorage:", currentUserEmail);
+        // Update UI elements
+        document.getElementById("userName").textContent = userData.name;
+        document.getElementById("userRole").textContent = userData.role;
+        document.getElementById("userEmail").textContent =
+          "n12345678@humber.ca";
 
-        let userData = null;
-
-        // Prioritize getting data from currentUser in localStorage
-        if (currentUser) {
-          userData = currentUser;
-          console.log("Using user data from localStorage:", userData);
-        }
-        // Then try to get it directly from userData.js using the email
-        else if (
-          currentUserEmail &&
-          window.userData &&
-          window.userData[currentUserEmail]
-        ) {
-          userData = window.userData[currentUserEmail];
-          console.log("Using user data from userData.js via email:", userData);
-        }
-
-        // If we have user data, update the UI
-        if (userData) {
-          // Update user name
-          const userNameElement = document.getElementById("userName");
-          if (userNameElement && userData.name) {
-            userNameElement.textContent = userData.name;
-          }
-
-          // Update user email
-          const userEmailElement = document.getElementById("userEmail");
-          if (userEmailElement) {
-            userEmailElement.textContent = userData.email || currentUserEmail;
-          }
-
-          // Update user role
-          const userRoleElement = document.getElementById("userRole");
-          if (userRoleElement && userData.role) {
-            userRoleElement.textContent = userData.role;
-          }
-
-          // Update profile image
-          const profileImageElement = document.getElementById("profileImage");
-          if (profileImageElement && userData.image) {
-            profileImageElement.src = userData.image;
-          } else if (profileImageElement && userData.profilePicture) {
-            profileImageElement.src = userData.profilePicture;
-          }
-        }
-      });
+        // The image is already set in the inline script
+      };
     </script>
   </body>
 </html>
