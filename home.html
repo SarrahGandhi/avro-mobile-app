@@ -6,6 +6,9 @@
     <title>AVRO Mobile App</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
+      .body {
+        background-color: #000000;
+      }
       .tutorial-overlay {
         position: fixed;
         top: 0;
@@ -640,7 +643,11 @@
             </div>
             <div class="gradient-overlay"></div>
 
-            <img src="images/profileicon.jpeg" alt="image" />
+            <img
+              id="profileImage"
+              src="images/profileicon.jpeg"
+              alt="Profile Image"
+            />
           </div>
           <div class="slide">
             <div class="backside">
@@ -773,6 +780,11 @@
           document.getElementById("userName").textContent = userData.name;
           document.getElementById("userNameBarcode").textContent =
             userData.name;
+
+          // Set profile image if available
+          if (userData.image) {
+            document.getElementById("profileImage").src = userData.image;
+          }
 
           // Set printing balance if available
           if (userData.printingBalance) {

@@ -8,7 +8,7 @@ const events = [
     location: "LNX9101",
     points: 350,
     category: "Academic",
-    image: "images/job-fair.jpg",
+    image: "images/jobfair.png",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const events = [
     location: "Student Center",
     points: 250,
     category: "Cultural",
-    image: "images/ignite-concert.jpg",
+    image: "images/image 28.png",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const events = [
     location: "B201",
     points: 200,
     category: "Academic",
-    image: "images/wellness-workshop.jpg",
+    image: "images/igniteevents.png",
   },
 ];
 

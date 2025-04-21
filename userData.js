@@ -111,7 +111,7 @@ const userData = {
     lives: 3,
     printingBalance: 15.5,
     mealPlanBalance: 750.0,
-    profileImage: "assets/profile-1.jpg",
+    image: "images/lisa.jpg",
     notifications: [
       {
         id: 1,
@@ -142,7 +142,7 @@ const userData = {
     lives: 4,
     printingBalance: 28.75,
     mealPlanBalance: 1450.5,
-    profileImage: "images/jane.jpg",
+    image: "images/lisa.jpg",
     notifications: [
       {
         id: 1,
@@ -158,7 +158,7 @@ const userData = {
     name: "John Doe",
     printingBalance: 10.25,
     mealPlanBalance: 500.25,
-    profilePicture: "assets/profile-picture.jpg",
+    image: "images/lisa.jpg",
     notifications: [
       {
         id: 1,
