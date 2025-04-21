@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AVRO Mobile App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .door-access-container {
+        padding: 16px;
+      }
+
+      .door-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .door-header .back-button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin-right: 15px;
+      }
+
+      .door-header h1 {
+        font-size: 24px;
+        color: #435e8c;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .access-text {
+        font-size: 16px;
+        color: #000;
+        margin-bottom: 16px;
+      }
+
+      .door-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .door-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #edf0f5;
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .door-item .lock-icon {
+        margin-right: 15px;
+      }
+
+      .door-code {
+        font-size: 20px;
+        font-weight: 500;
+        color: #000;
+      }
+
+      .enter-button {
+        background-color: #435e8c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .door-left {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Modal styles */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        display: none;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 80%;
+        position: relative;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+
+      .loading-spinner {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #888;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .modal-content h2 {
+        margin: 15px 0;
+        font-size: 20px;
+        color: #333;
+      }
+
+      .modal-content p {
+        margin: 10px 0;
+        font-size: 16px;
+        color: #666;
+      }
+
+      .error-icon {
+        width: 60px;
+        height: 60px;
+        margin: 10px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu-panel">
+      <div class="menu-header">
+        <button class="back-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke="#6F81A0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <h2>Menu</h2>
+        <a href="#" class="logout-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9"
+              stroke="#6F81A0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M16 17L21 12L16 7"
+              stroke="#6F81A0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M21 12H9"
+              stroke="#6F81A0"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Logout
+        </a>
+      </div>
+      <!-- Menu items would go here, keeping it simple for this example -->
+    </div>
+
+    <div class="app-container">
+      <div class="door-access-container">
+        <div class="door-header">
+          <button class="back-button" onclick="history.back()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M19 12H5M5 12L12 19M5 12L12 5"
+                stroke="#6F81A0"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <h1>Class Door List</h1>
+        </div>
+
+        <p class="access-text">You can access</p>
+
+        <div class="door-list">
+          <!-- Door Item 1 -->
+          <div class="door-item">
+            <div class="door-left">
+              <svg
+                class="lock-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M8 11V7C8 5.93913 8.42143 4.92172 9.17157 4.17157C9.92172 3.42143 10.9391 3 12 3C13.0609 3 14.0783 3.42143 14.8284 4.17157C15.5786 4.92172 16 5.93913 16 7V11M7 11H17C17.5304 11 18.0391 11.2107 18.4142 11.5858C18.7893 11.9609 19 12.4696 19 13V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V13C5 12.4696 5.21071 11.9609 5.58579 11.5858C5.96086 11.2107 6.46957 11 7 11Z"
+                  stroke="#435E8C"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="door-code">L210</span>
+            </div>
+            <button class="enter-button">Enter</button>
+          </div>
+
+          <!-- Door Item 2 -->
+          <div class="door-item">
+            <div class="door-left">
+              <svg
+                class="lock-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M8 11V7C8 5.93913 8.42143 4.92172 9.17157 4.17157C9.92172 3.42143 10.9391 3 12 3C13.0609 3 14.0783 3.42143 14.8284 4.17157C15.5786 4.92172 16 5.93913 16 7V11M7 11H17C17.5304 11 18.0391 11.2107 18.4142 11.5858C18.7893 11.9609 19 12.4696 19 13V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V13C5 12.4696 5.21071 11.9609 5.58579 11.5858C5.96086 11.2107 6.46957 11 7 11Z"
+                  stroke="#435E8C"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="door-code">J307</span>
+            </div>
+            <button class="enter-button">Enter</button>
+          </div>
+
+          <!-- Door Item 3 -->
+          <div class="door-item">
+            <div class="door-left">
+              <svg
+                class="lock-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M8 11V7C8 5.93913 8.42143 4.92172 9.17157 4.17157C9.92172 3.42143 10.9391 3 12 3C13.0609 3 14.0783 3.42143 14.8284 4.17157C15.5786 4.92172 16 5.93913 16 7V11M7 11H17C17.5304 11 18.0391 11.2107 18.4142 11.5858C18.7893 11.9609 19 12.4696 19 13V19C19 19.5304 18.7893 20.0391 18.4142 20.4142C18.0391 20.7893 17.5304 21 17 21H7C6.46957 21 5.96086 20.7893 5.58579 20.4142C5.21071 20.0391 5 19.5304 5 19V13C5 12.4696 5.21071 11.9609 5.58579 11.5858C5.96086 11.2107 6.46957 11 7 11Z"
+                  stroke="#435E8C"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="door-code">E303</span>
+            </div>
+            <button class="enter-button">Enter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('loadingModal')">
+          &times;
+        </button>
+        <div class="loading-spinner"></div>
+        <h2>Connecting with Reader,</h2>
+        <p>Please move closer</p>
+      </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal('errorModal')">
+          &times;
+        </button>
+        <svg
+          class="error-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <circle cx="50" cy="50" r="30" fill="#435E8C" />
+          <path
+            d="M60 40L40 60M40 40L60 60"
+            stroke="white"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+        </svg>
+        <h2>Unable to open a door,</h2>
+        <p>contact campus security on</p>
+        <p>416-675-6622</p>
+        <p>Ext.4000 for Help.</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // Modal control functions
+      function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+      }
+
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+      }
+
+      // Add event listeners to close buttons
+      document.querySelectorAll(".close-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          this.closest(".modal").style.display = "none";
+        });
+      });
+
+      // Door access functionality
+      document.querySelectorAll(".enter-button").forEach((button) => {
+        button.addEventListener("click", function () {
+          const doorCode =
+            this.parentElement.querySelector(".door-code").textContent;
+
+          // Show loading modal
+          openModal("loadingModal");
+
+          // After 3 seconds, hide loading modal and show error modal
+          setTimeout(function () {
+            closeModal("loadingModal");
+            openModal("errorModal");
+          }, 3000);
+        });
+      });
+    </script>
+  </body>
+</html>
