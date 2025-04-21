@@ -31,6 +31,7 @@
         display: flex;
         align-items: center;
         gap: 16px;
+        z-index: 100;
       }
 
       .header h1 {
@@ -42,8 +43,19 @@
       .back-button {
         background: none;
         border: none;
-        padding: 0;
+        padding: 8px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #435e8c;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+      }
+
+      .back-button:hover {
+        background-color: rgba(67, 94, 140, 0.1);
       }
 
       .event-content {
@@ -351,7 +363,10 @@
   <body>
     <div class="container">
       <header class="header">
-        <button class="back-button" onclick="history.back()">
+        <button
+          class="back-button"
+          onclick="window.location.href='events.html'"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -562,6 +577,20 @@
         console.log("Test function called from console");
         showSuccessModal();
       };
+
+      // Handle back button click
+      function goBack() {
+        console.log("Back button clicked");
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromMyEvents = urlParams.get("fromMyEvents") === "true";
+
+        // Navigate to the appropriate page based on where the user came from
+        if (fromMyEvents) {
+          window.location.href = "events.html?tab=myEvents";
+        } else {
+          window.location.href = "events.html";
+        }
+      }
 
       document.addEventListener("DOMContentLoaded", function () {
         // Get event ID from URL parameters

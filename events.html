@@ -41,8 +41,19 @@
       .back-button {
         background: none;
         border: none;
-        padding: 0;
+        padding: 8px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #435e8c;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+      }
+
+      .back-button:hover {
+        background-color: rgba(67, 94, 140, 0.1);
       }
 
       .tabs {
@@ -330,7 +341,7 @@
   <body>
     <div class="container">
       <header class="header">
-        <button class="back-button" onclick="history.back()">
+        <button class="back-button" onclick="window.location.href='home.html'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -476,6 +487,17 @@
       const tabs = document.querySelectorAll(".tab");
       const upcomingEvents = document.getElementById("upcomingEvents");
       const myEvents = document.getElementById("myEvents");
+
+      // Check for tab parameter in URL
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tabParam = urlParams.get("tab");
+
+        if (tabParam === "myEvents") {
+          // Switch to My Events tab
+          tabs[1].click();
+        }
+      });
 
       tabs.forEach((tab, index) => {
         tab.addEventListener("click", () => {
